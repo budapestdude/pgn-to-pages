@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>European Championships (Unknown Event)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav-button {
+            background: white;
+            color: #4a90e2;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .podium {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .podium h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .podium-place {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 200px;
+            transition: transform 0.3s ease;
+        }
+        
+        .podium-place:hover {
+            transform: translateY(-5px);
+        }
+        
+        .podium-place.first {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            order: 2;
+            transform: scale(1.1);
+        }
+        
+        .podium-place.second {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            order: 1;
+        }
+        
+        .podium-place.third {
+            background: linear-gradient(135deg, #cd7f32, #daa520);
+            order: 3;
+        }
+        
+        .medal {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .podium-place h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .podium-place .score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            color: #2c3e50;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .standings {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .medal-winner {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7) !important;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <a href="/tournaments/index.html" class="nav-button">
+                <i class="fas fa-home"></i> Back to Tournaments
+            </a>
+        </div>
+        
+        <div class="header">
+            <h1>European Championships (Unknown Event)</h1>
+            <div class="subtitle"> • </div>
+        </div>
+        
+        
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Tournament Overview</h3>
+                <div class="stat-item">
+                    <span>Total Players</span>
+                    <strong>0</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Games Played</span>
+                    <strong>0</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Rounds</span>
+                    <strong>N/A</strong>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Game Results</h3>
+                <div class="stat-item">
+                    <span>White Wins</span>
+                    <strong>0 (NaN%)</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Black Wins</span>
+                    <strong>0 (NaN%)</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Draws</span>
+                    <strong>0 (NaN%)</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="standings">
+            <h3>Final Standings</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Score</th>
+                        <th>Games</th>
+                        <th>W-D-L</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

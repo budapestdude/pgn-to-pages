@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EU-Cup 28th</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav-button {
+            background: white;
+            color: #4a90e2;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .team-badge {
+            background: #4a90e2;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .podium {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .podium h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .podium-place {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 220px;
+            transition: transform 0.3s ease;
+        }
+        
+        .podium-place:hover {
+            transform: translateY(-5px);
+        }
+        
+        .podium-place.first {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            order: 2;
+            transform: scale(1.1);
+        }
+        
+        .podium-place.second {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            order: 1;
+        }
+        
+        .podium-place.third {
+            background: linear-gradient(135deg, #cd7f32, #daa520);
+            order: 3;
+        }
+        
+        .medal {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .standings {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .medal-winner {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7) !important;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <a href="/tournaments/index.html" class="nav-button">
+                <i class="fas fa-home"></i> Back to Tournaments
+            </a>
+        </div>
+        
+        <div class="header">
+            <div class="team-badge">TEAM TOURNAMENT</div>
+            <h1>EU-Cup 28th</h1>
+            <div class="subtitle">Eilat • 2012.10.11</div>
+        </div>
+        
+        
+        <div class="podium">
+            <h2>🏆 Winning Teams</h2>
+            <div class="podium-container">
+                
+                    <div class="podium-place first">
+                        <span class="medal">🥇</span>
+                        <h3>SOCAR</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            64 MP
+                        </div>
+                        <div style="color: #666;">
+                            32 game points
+                        </div>
+                    </div>
+                
+                    <div class="podium-place second">
+                        <span class="medal">🥈</span>
+                        <h3>St Petersburg CF</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            59 MP
+                        </div>
+                        <div style="color: #666;">
+                            29.5 game points
+                        </div>
+                    </div>
+                
+                    <div class="podium-place third">
+                        <span class="medal">🥉</span>
+                        <h3>Baden-Baden</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            56 MP
+                        </div>
+                        <div style="color: #666;">
+                            28 game points
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="standings">
+            <h3>Team Standings</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Team</th>
+                        <th>Match Points</th>
+                        <th>Game Points</th>
+                        <th>Matches</th>
+                        <th>W-D-L</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr class="medal-winner">
+                            <td>🥇</td>
+                            <td>SOCAR</td>
+                            <td><strong>64</strong></td>
+                            <td>32</td>
+                            <td>42</td>
+                            <td>25-14-3</td>
+                        </tr>
+                    
+                        <tr class="medal-winner">
+                            <td>🥈</td>
+                            <td>St Petersburg CF</td>
+                            <td><strong>59</strong></td>
+                            <td>29.5</td>
+                            <td>42</td>
+                            <td>18-23-1</td>
+                        </tr>
+                    
+                        <tr class="medal-winner">
+                            <td>🥉</td>
+                            <td>Baden-Baden</td>
+                            <td><strong>56</strong></td>
+                            <td>28</td>
+                            <td>42</td>
+                            <td>20-16-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>4</td>
+                            <td>SHSM-64</td>
+                            <td><strong>56</strong></td>
+                            <td>28</td>
+                            <td>42</td>
+                            <td>19-18-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>5</td>
+                            <td>Tomsk 400</td>
+                            <td><strong>56</strong></td>
+                            <td>28</td>
+                            <td>42</td>
+                            <td>22-12-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>6</td>
+                            <td>Saratov Economist</td>
+                            <td><strong>53</strong></td>
+                            <td>26.5</td>
+                            <td>42</td>
+                            <td>13-27-2</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>7</td>
+                            <td>Novy Bor</td>
+                            <td><strong>51</strong></td>
+                            <td>25.5</td>
+                            <td>42</td>
+                            <td>15-21-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>8</td>
+                            <td>Siroki Brijeg</td>
+                            <td><strong>51</strong></td>
+                            <td>25.5</td>
+                            <td>42</td>
+                            <td>20-11-11</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>9</td>
+                            <td>Risarcimento Obiettivo</td>
+                            <td><strong>49</strong></td>
+                            <td>24.5</td>
+                            <td>42</td>
+                            <td>16-17-9</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>10</td>
+                            <td>Vesnianka Gran</td>
+                            <td><strong>48</strong></td>
+                            <td>24</td>
+                            <td>42</td>
+                            <td>18-12-12</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>11</td>
+                            <td>Ugra</td>
+                            <td><strong>47</strong></td>
+                            <td>24</td>
+                            <td>41</td>
+                            <td>14-19-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>12</td>
+                            <td>Beer Sheva</td>
+                            <td><strong>46</strong></td>
+                            <td>23</td>
+                            <td>42</td>
+                            <td>15-16-11</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>13</td>
+                            <td>Eynatten</td>
+                            <td><strong>46</strong></td>
+                            <td>23</td>
+                            <td>42</td>
+                            <td>19-8-15</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>14</td>
+                            <td>Rishon Le Zion</td>
+                            <td><strong>46</strong></td>
+                            <td>23</td>
+                            <td>42</td>
+                            <td>18-10-14</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>15</td>
+                            <td>Ashdod</td>
+                            <td><strong>45</strong></td>
+                            <td>23</td>
+                            <td>41</td>
+                            <td>14-17-10</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>16</td>
+                            <td>De Stukkenjagers</td>
+                            <td><strong>45</strong></td>
+                            <td>22.5</td>
+                            <td>42</td>
+                            <td>18-9-15</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>17</td>
+                            <td>Geneve</td>
+                            <td><strong>41</strong></td>
+                            <td>20.5</td>
+                            <td>42</td>
+                            <td>15-11-16</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>18</td>
+                            <td>Minsk Ladia</td>
+                            <td><strong>41</strong></td>
+                            <td>20.5</td>
+                            <td>42</td>
+                            <td>14-13-15</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>19</td>
+                            <td>Taldea Gros Xake</td>
+                            <td><strong>41</strong></td>
+                            <td>20.5</td>
+                            <td>42</td>
+                            <td>13-15-14</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>20</td>
+                            <td>Kfar Saba</td>
+                            <td><strong>38</strong></td>
+                            <td>19</td>
+                            <td>42</td>
+                            <td>13-12-17</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>21</td>
+                            <td>Amay</td>
+                            <td><strong>37</strong></td>
+                            <td>18.5</td>
+                            <td>42</td>
+                            <td>12-13-17</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>22</td>
+                            <td>Jutes of Kent</td>
+                            <td><strong>37</strong></td>
+                            <td>18.5</td>
+                            <td>42</td>
+                            <td>12-13-17</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>23</td>
+                            <td>Petah Tikva</td>
+                            <td><strong>37</strong></td>
+                            <td>18.5</td>
+                            <td>42</td>
+                            <td>11-15-16</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>24</td>
+                            <td>White Rose</td>
+                            <td><strong>37</strong></td>
+                            <td>18.5</td>
+                            <td>42</td>
+                            <td>14-9-19</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>25</td>
+                            <td>Oslo Schakselskap</td>
+                            <td><strong>36</strong></td>
+                            <td>18</td>
+                            <td>42</td>
+                            <td>10-16-16</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>26</td>
+                            <td>Team Viking</td>
+                            <td><strong>36</strong></td>
+                            <td>18</td>
+                            <td>42</td>
+                            <td>12-12-18</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>27</td>
+                            <td>Expik</td>
+                            <td><strong>34</strong></td>
+                            <td>17</td>
+                            <td>42</td>
+                            <td>11-12-19</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>28</td>
+                            <td>Perfect</td>
+                            <td><strong>34</strong></td>
+                            <td>17</td>
+                            <td>42</td>
+                            <td>13-8-21</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>29</td>
+                            <td>Zuerich SG</td>
+                            <td><strong>32</strong></td>
+                            <td>16</td>
+                            <td>42</td>
+                            <td>9-14-19</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>30</td>
+                            <td>SOSS</td>
+                            <td><strong>30</strong></td>
+                            <td>15</td>
+                            <td>42</td>
+                            <td>10-10-22</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>31</td>
+                            <td>Gambit Asseco See</td>
+                            <td><strong>29</strong></td>
+                            <td>14.5</td>
+                            <td>42</td>
+                            <td>8-13-21</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>32</td>
+                            <td>Shakkivelhot</td>
+                            <td><strong>26</strong></td>
+                            <td>13</td>
+                            <td>42</td>
+                            <td>6-14-22</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>33</td>
+                            <td>Tammer Shakki</td>
+                            <td><strong>25</strong></td>
+                            <td>12.5</td>
+                            <td>42</td>
+                            <td>9-7-26</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>34</td>
+                            <td>Monte Carlo</td>
+                            <td><strong>17</strong></td>
+                            <td>8.5</td>
+                            <td>42</td>
+                            <td>3-11-28</td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

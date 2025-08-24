@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EU-Cup 24th</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav-button {
+            background: white;
+            color: #4a90e2;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .team-badge {
+            background: #4a90e2;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .podium {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .podium h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .podium-place {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 220px;
+            transition: transform 0.3s ease;
+        }
+        
+        .podium-place:hover {
+            transform: translateY(-5px);
+        }
+        
+        .podium-place.first {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            order: 2;
+            transform: scale(1.1);
+        }
+        
+        .podium-place.second {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            order: 1;
+        }
+        
+        .podium-place.third {
+            background: linear-gradient(135deg, #cd7f32, #daa520);
+            order: 3;
+        }
+        
+        .medal {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .standings {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .medal-winner {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7) !important;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <a href="/tournaments/index.html" class="nav-button">
+                <i class="fas fa-home"></i> Back to Tournaments
+            </a>
+        </div>
+        
+        <div class="header">
+            <div class="team-badge">TEAM TOURNAMENT</div>
+            <h1>EU-Cup 24th</h1>
+            <div class="subtitle">Kallithea • 2008.10.17</div>
+        </div>
+        
+        
+        <div class="podium">
+            <h2>🏆 Winning Teams</h2>
+            <div class="podium-container">
+                
+                    <div class="podium-place first">
+                        <span class="medal">🥇</span>
+                        <h3>Ural Sverdlovskaya</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            25 MP
+                        </div>
+                        <div style="color: #666;">
+                            32 game points
+                        </div>
+                    </div>
+                
+                    <div class="podium-place second">
+                        <span class="medal">🥈</span>
+                        <h3>Kiev Kievchess</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            22 MP
+                        </div>
+                        <div style="color: #666;">
+                            30 game points
+                        </div>
+                    </div>
+                
+                    <div class="podium-place third">
+                        <span class="medal">🥉</span>
+                        <h3>Sarajevo Bosna</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            22 MP
+                        </div>
+                        <div style="color: #666;">
+                            30 game points
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="standings">
+            <h3>Team Standings</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Team</th>
+                        <th>Match Points</th>
+                        <th>Game Points</th>
+                        <th>Matches</th>
+                        <th>W-D-L</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr class="medal-winner">
+                            <td>🥇</td>
+                            <td>Ural Sverdlovskaya</td>
+                            <td><strong>25</strong></td>
+                            <td>32</td>
+                            <td>14</td>
+                            <td>12-1-1</td>
+                        </tr>
+                    
+                        <tr class="medal-winner">
+                            <td>🥈</td>
+                            <td>Kiev Kievchess</td>
+                            <td><strong>22</strong></td>
+                            <td>30</td>
+                            <td>14</td>
+                            <td>10-2-2</td>
+                        </tr>
+                    
+                        <tr class="medal-winner">
+                            <td>🥉</td>
+                            <td>Sarajevo Bosna</td>
+                            <td><strong>22</strong></td>
+                            <td>30</td>
+                            <td>14</td>
+                            <td>9-4-1</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>4</td>
+                            <td>Baden-Baden</td>
+                            <td><strong>22</strong></td>
+                            <td>27.5</td>
+                            <td>14</td>
+                            <td>9-4-1</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>5</td>
+                            <td>Saratov Economist</td>
+                            <td><strong>20</strong></td>
+                            <td>28</td>
+                            <td>14</td>
+                            <td>8-4-2</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>6</td>
+                            <td>Linex Magic</td>
+                            <td><strong>19</strong></td>
+                            <td>28</td>
+                            <td>14</td>
+                            <td>8-3-3</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>7</td>
+                            <td>Saransk TPS</td>
+                            <td><strong>19</strong></td>
+                            <td>28</td>
+                            <td>14</td>
+                            <td>9-1-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>8</td>
+                            <td>Bank King</td>
+                            <td><strong>19</strong></td>
+                            <td>27.5</td>
+                            <td>14</td>
+                            <td>7-5-2</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>9</td>
+                            <td>Alkaloid</td>
+                            <td><strong>19</strong></td>
+                            <td>27</td>
+                            <td>14</td>
+                            <td>8-3-3</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>10</td>
+                            <td>Ashdod Illit </td>
+                            <td><strong>19</strong></td>
+                            <td>27</td>
+                            <td>14</td>
+                            <td>7-5-2</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>11</td>
+                            <td>Chieti Fischer</td>
+                            <td><strong>19</strong></td>
+                            <td>27</td>
+                            <td>14</td>
+                            <td>8-3-3</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>12</td>
+                            <td>Finek Gazprombank</td>
+                            <td><strong>19</strong></td>
+                            <td>26</td>
+                            <td>14</td>
+                            <td>8-3-3</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>13</td>
+                            <td>Muelheim Nord</td>
+                            <td><strong>19</strong></td>
+                            <td>25</td>
+                            <td>14</td>
+                            <td>9-1-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>14</td>
+                            <td>FIMA</td>
+                            <td><strong>18</strong></td>
+                            <td>25.5</td>
+                            <td>14</td>
+                            <td>8-2-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>15</td>
+                            <td>Novoborsky</td>
+                            <td><strong>18</strong></td>
+                            <td>25.5</td>
+                            <td>14</td>
+                            <td>7-4-3</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>16</td>
+                            <td>Beer Sheva</td>
+                            <td><strong>18</strong></td>
+                            <td>24</td>
+                            <td>14</td>
+                            <td>8-2-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>17</td>
+                            <td>Yerevan Mika</td>
+                            <td><strong>18</strong></td>
+                            <td>24</td>
+                            <td>14</td>
+                            <td>7-4-3</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>18</td>
+                            <td>Utrecht</td>
+                            <td><strong>18</strong></td>
+                            <td>23</td>
+                            <td>14</td>
+                            <td>9-0-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>19</td>
+                            <td>Vilnius</td>
+                            <td><strong>17</strong></td>
+                            <td>25</td>
+                            <td>14</td>
+                            <td>6-5-3</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>20</td>
+                            <td>Clichy Echecs 92</td>
+                            <td><strong>17</strong></td>
+                            <td>23.5</td>
+                            <td>14</td>
+                            <td>7-3-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>21</td>
+                            <td>Baden Invest</td>
+                            <td><strong>16</strong></td>
+                            <td>22.5</td>
+                            <td>14</td>
+                            <td>6-4-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>22</td>
+                            <td>Stockholm Rockaden</td>
+                            <td><strong>16</strong></td>
+                            <td>22.5</td>
+                            <td>14</td>
+                            <td>7-2-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>23</td>
+                            <td>Zagreb</td>
+                            <td><strong>16</strong></td>
+                            <td>22.5</td>
+                            <td>14</td>
+                            <td>6-4-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>24</td>
+                            <td>Tampere</td>
+                            <td><strong>15</strong></td>
+                            <td>24.5</td>
+                            <td>14</td>
+                            <td>6-3-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>25</td>
+                            <td>Aarhus/Skolerne</td>
+                            <td><strong>15</strong></td>
+                            <td>24</td>
+                            <td>14</td>
+                            <td>5-5-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>26</td>
+                            <td>Iretza Gros</td>
+                            <td><strong>15</strong></td>
+                            <td>24</td>
+                            <td>14</td>
+                            <td>7-1-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>27</td>
+                            <td>Thessaloniki ES</td>
+                            <td><strong>15</strong></td>
+                            <td>23.5</td>
+                            <td>14</td>
+                            <td>6-3-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>28</td>
+                            <td>Betsson.com</td>
+                            <td><strong>15</strong></td>
+                            <td>23</td>
+                            <td>14</td>
+                            <td>5-5-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>29</td>
+                            <td>Schakklubben av 1911</td>
+                            <td><strong>15</strong></td>
+                            <td>21.5</td>
+                            <td>14</td>
+                            <td>5-5-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>30</td>
+                            <td>Werder Bremen</td>
+                            <td><strong>15</strong></td>
+                            <td>21.5</td>
+                            <td>14</td>
+                            <td>5-5-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>31</td>
+                            <td>Hohenems</td>
+                            <td><strong>15</strong></td>
+                            <td>21</td>
+                            <td>14</td>
+                            <td>6-3-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>32</td>
+                            <td>Panevezys</td>
+                            <td><strong>15</strong></td>
+                            <td>21</td>
+                            <td>14</td>
+                            <td>5-5-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>33</td>
+                            <td>Barbican</td>
+                            <td><strong>14</strong></td>
+                            <td>21.5</td>
+                            <td>14</td>
+                            <td>5-4-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>34</td>
+                            <td>Ptuj Veplas Velenje</td>
+                            <td><strong>14</strong></td>
+                            <td>21.5</td>
+                            <td>14</td>
+                            <td>6-2-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>35</td>
+                            <td>Charleroi CREC</td>
+                            <td><strong>14</strong></td>
+                            <td>20</td>
+                            <td>14</td>
+                            <td>5-4-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>36</td>
+                            <td>Llamkos</td>
+                            <td><strong>14</strong></td>
+                            <td>20</td>
+                            <td>14</td>
+                            <td>5-4-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>37</td>
+                            <td>Bolungarvik</td>
+                            <td><strong>14</strong></td>
+                            <td>18</td>
+                            <td>14</td>
+                            <td>5-4-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>38</td>
+                            <td>Eupen Rochade</td>
+                            <td><strong>13</strong></td>
+                            <td>21.5</td>
+                            <td>14</td>
+                            <td>6-1-7</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>39</td>
+                            <td>OSS</td>
+                            <td><strong>13</strong></td>
+                            <td>21.5</td>
+                            <td>14</td>
+                            <td>5-3-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>40</td>
+                            <td>Espoo MatSK</td>
+                            <td><strong>13</strong></td>
+                            <td>19</td>
+                            <td>14</td>
+                            <td>5-3-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>41</td>
+                            <td>Leiden LSG</td>
+                            <td><strong>13</strong></td>
+                            <td>18.5</td>
+                            <td>14</td>
+                            <td>4-5-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>42</td>
+                            <td>Siroki Brijeg</td>
+                            <td><strong>13</strong></td>
+                            <td>17.5</td>
+                            <td>14</td>
+                            <td>5-3-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>43</td>
+                            <td>Reichenstein</td>
+                            <td><strong>12</strong></td>
+                            <td>21</td>
+                            <td>14</td>
+                            <td>6-0-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>44</td>
+                            <td>Eynatten</td>
+                            <td><strong>12</strong></td>
+                            <td>19</td>
+                            <td>14</td>
+                            <td>4-4-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>45</td>
+                            <td>Differdange</td>
+                            <td><strong>12</strong></td>
+                            <td>18.5</td>
+                            <td>14</td>
+                            <td>5-2-7</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>46</td>
+                            <td>Butrinti</td>
+                            <td><strong>11</strong></td>
+                            <td>20.5</td>
+                            <td>14</td>
+                            <td>3-5-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>47</td>
+                            <td>Szombathely</td>
+                            <td><strong>11</strong></td>
+                            <td>20</td>
+                            <td>14</td>
+                            <td>4-3-7</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>48</td>
+                            <td>Calder HMC</td>
+                            <td><strong>11</strong></td>
+                            <td>18</td>
+                            <td>14</td>
+                            <td>5-1-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>49</td>
+                            <td>Mendrisio</td>
+                            <td><strong>10</strong></td>
+                            <td>18.5</td>
+                            <td>14</td>
+                            <td>5-0-9</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>50</td>
+                            <td>Istogu</td>
+                            <td><strong>10</strong></td>
+                            <td>17</td>
+                            <td>14</td>
+                            <td>3-4-7</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>51</td>
+                            <td>Skopje Gambit Peksim</td>
+                            <td><strong>10</strong></td>
+                            <td>17</td>
+                            <td>14</td>
+                            <td>4-2-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>52</td>
+                            <td>Thessaloniki Galaxias</td>
+                            <td><strong>9</strong></td>
+                            <td>18</td>
+                            <td>14</td>
+                            <td>3-3-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>53</td>
+                            <td>Phibsboro</td>
+                            <td><strong>9</strong></td>
+                            <td>16.5</td>
+                            <td>14</td>
+                            <td>3-3-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>54</td>
+                            <td>Hellir</td>
+                            <td><strong>9</strong></td>
+                            <td>15</td>
+                            <td>14</td>
+                            <td>3-3-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>55</td>
+                            <td>Monaco</td>
+                            <td><strong>9</strong></td>
+                            <td>14.5</td>
+                            <td>14</td>
+                            <td>4-1-9</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>56</td>
+                            <td>Copenhagen Bronshoj</td>
+                            <td><strong>9</strong></td>
+                            <td>14</td>
+                            <td>14</td>
+                            <td>4-1-9</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>57</td>
+                            <td>Merida Patrimonio</td>
+                            <td><strong>8</strong></td>
+                            <td>15.5</td>
+                            <td>14</td>
+                            <td>3-2-9</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>58</td>
+                            <td>Kosice</td>
+                            <td><strong>8</strong></td>
+                            <td>14.5</td>
+                            <td>14</td>
+                            <td>3-2-9</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>59</td>
+                            <td>Cwmbran</td>
+                            <td><strong>7</strong></td>
+                            <td>12.5</td>
+                            <td>14</td>
+                            <td>2-3-9</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>60</td>
+                            <td>Ennis</td>
+                            <td><strong>6</strong></td>
+                            <td>12.5</td>
+                            <td>14</td>
+                            <td>2-2-10</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>61</td>
+                            <td>Luxembourg Bonnevoie</td>
+                            <td><strong>6</strong></td>
+                            <td>10.5</td>
+                            <td>14</td>
+                            <td>3-0-11</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>62</td>
+                            <td>Belfast</td>
+                            <td><strong>6</strong></td>
+                            <td>10</td>
+                            <td>14</td>
+                            <td>2-2-10</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>63</td>
+                            <td>Nidum</td>
+                            <td><strong>5</strong></td>
+                            <td>11</td>
+                            <td>14</td>
+                            <td>2-1-11</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>64</td>
+                            <td>Apollonia</td>
+                            <td><strong>1</strong></td>
+                            <td>6</td>
+                            <td>14</td>
+                            <td>0-1-13</td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

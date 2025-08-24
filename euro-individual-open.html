@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>European Individual Chess Championship Medalists</title>
+    <style>
+        /* Main Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            transition: background-color 0.5s ease;
+        }
+        
+        /* Loading Spinner */
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4a90e2;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 50px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffebee;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        
+        /* Powered by Chessdom button */
+        .powered-by {
+            display: inline-block;
+            margin: 20px auto 0;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        
+        .powered-by:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chess-calendar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        /* Enhanced Header Styles - With LIGHTER BLUE THEME */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            border-bottom: none;
+            position: relative;
+            transform: translateY(0);
+            transition: transform 0.5s ease;
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjUgMjVMNTAgNTBMMjUgNzVMNTAgMTAwTDc1IDc1TDUwIDUwTDc1IDI1TDUwIDBMMjUgMjVaIiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDUpIiAvPjwvc3ZnPg==');
+            background-size: 100px 100px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-header h1 {
+            color: #ffffff;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-header h1::before,
+        .page-header h1::after {
+            content: '♕';
+            font-size: 2rem;
+            margin: 0 15px;
+            color: #d4af37;
+            vertical-align: middle;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* Table Styles */
+        .table-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            overflow-x: auto;
+            min-height: 200px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        
+        tr:hover {
+            background-color: #f0f7ff;
+        }
+        
+        /* Championship event styles */
+        tr.gold-medal {
+            background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%) !important;
+            position: relative;
+            transition: all 0.3s ease;
+            border-left: 4px solid #d4af37 !important;
+        }
+        
+        tr.gold-medal:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        }
+        
+        tr.gold-medal td {
+            border-color: #fff9c4;
+        }
+        
+        tr.gold-medal td:first-child::before {
+            content: "🏆";
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+        
+        /* URLs */
+        td a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 6px 12px;
+            border: 2px solid #4a90e2;
+            border-radius: 6px;
+        }
+        
+        td a:hover {
+            background-color: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Dark Theme - Keeping styles but removing toggle functionality */
+        body.dark-theme {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        body.dark-theme .table-container {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+        }
+        
+        body.dark-theme .page-header {
+            background: linear-gradient(135deg, #2a5a8a, #3d80c9);
+        }
+        
+        body.dark-theme tr:nth-child(even) {
+            background-color: #333333;
+        }
+        
+        body.dark-theme tr:nth-child(odd) {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-theme tr:hover {
+            background-color: #3a3a3a;
+        }
+                
+        body.dark-theme tr.gold-medal {
+            background: linear-gradient(135deg, #433b10, #3a3522) !important;
+            border-left: 4px solid #d4af37 !important;
+        }
+                
+        body.dark-theme td a {
+            color: #81b6f5;
+            border-color: #81b6f5;
+        }
+        
+        body.dark-theme td a:hover {
+            background-color: #81b6f5;
+            color: #1a1a1a;
+        }
+        
+        /* Bottom navigation */
+        .back-to-top {
+            display: block;
+            text-align: center;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top:hover {
+            background-color: #3b7ac5;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Medal Icons */
+        .gold-icon, .silver-icon, .bronze-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        .gold-icon {
+            background: linear-gradient(135deg, #FFD700, #FFC107);
+            box-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+        }
+        
+        .silver-icon {
+            background: linear-gradient(135deg, #C0C0C0, #E0E0E0);
+            box-shadow: 0 2px 4px rgba(192, 192, 192, 0.3);
+        }
+        
+        .bronze-icon {
+            background: linear-gradient(135deg, #CD7F32, #D7995B);
+            box-shadow: 0 2px 4px rgba(205, 127, 50, 0.3);
+        }
+        
+        /* Country flags */
+        .flag-icon {
+            width: 20px;
+            height: 13px;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-header h1::before,
+            .page-header h1::after {
+                font-size: 1.8rem;
+                margin: 0 10px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .page-header h1::before,
+            .page-header h1::after {
+                font-size: 1.5rem;
+                margin: 0 8px;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .page-header h1::before,
+            .page-header h1::after {
+                display: block;
+                margin: 10px auto;
+            }
+            
+            th, td {
+                padding: 8px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Papa Parse for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="chess-calendar-container">
+        <header class="page-header">
+            <div class="header-content">
+                <h1>European Individual Championship</h1>
+                <p style="color: white; margin-top: 5px; font-size: 1.2rem;">Gold, Silver and Bronze Medalists</p>
+                <a href="https://www.chessdom.com" class="powered-by" target="_blank">Powered by Chessdom</a>
+            </div>
+        </header>
+        
+        <div class="table-container">
+            <div id="loadingSpinner" class="loader"></div>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            <table id="championshipTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Venue</th>
+                        <th>Gold Medalist</th>
+                        <th>Silver Medalist</th>
+                        <th>Bronze Medalist</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id="championshipTableBody">
+                    <!-- Data will be loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+        
+        <a href="#" class="back-to-top">
+            <i class="fas fa-arrow-up"></i> Back to top
+        </a>
+    </div>
+
+    <script>
+        // Country flag mappings
+        const countryFlags = {
+            'GER': 'https://www.countryflags.com/wp-content/uploads/germany-flag-png-large.png',
+            'ISR': 'https://www.countryflags.com/wp-content/uploads/israel-flag-png-large.png',
+            'SRB': 'https://www.countryflags.com/wp-content/uploads/serbia-flag-png-large.png',
+            'BEL': 'https://flagcdn.com/w80/be.png',
+            'RUS': 'https://www.countryflags.com/wp-content/uploads/russia-flag-png-large.png',
+            'ROU': 'https://www.countryflags.com/wp-content/uploads/romania-flag-png-large.png',
+            'ARM': 'https://flagcdn.com/w80/am.png',
+            'CRO': 'https://www.countryflags.com/wp-content/uploads/croatia-flag-png-large.png',
+            'SWE': 'https://www.countryflags.com/wp-content/uploads/sweden-flag-png-large.png',
+            'POL': 'https://www.countryflags.com/wp-content/uploads/poland-flag-png-large.png',
+            'GEO': 'https://flagcdn.com/w80/ge.png',
+            'LAT': 'https://www.countryflags.com/wp-content/uploads/latvia-flag-png-large.png',
+            'CZE': 'https://www.countryflags.com/wp-content/uploads/czech-republic-flag-png-large.png',
+            'ESP': 'https://www.countryflags.com/wp-content/uploads/spain-flag-png-large.png',
+            'UKR': 'https://www.countryflags.com/wp-content/uploads/ukraine-flag-png-large.png',
+            'FRA': 'https://www.countryflags.com/wp-content/uploads/france-flag-png-large.png',
+            'HUN': 'https://www.countryflags.com/wp-content/uploads/hungary-flag-png-large.png',
+            'NED': 'https://www.countryflags.com/wp-content/uploads/netherlands-flag-png-large.png',
+            'SVK': 'https://www.countryflags.com/wp-content/uploads/slovakia-flag-png-large.png',
+            'BUL': 'https://www.countryflags.com/wp-content/uploads/bulgaria-flag-png-large.png',
+            'AZE': 'https://flagcdn.com/w80/az.png',
+            'BIH': 'https://flagcdn.com/w80/ba.png',
+            'BLR': 'https://flagcdn.com/w80/by.png',
+            'FIDE': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/FIDE_logo.svg/1200px-FIDE_logo.svg.png',
+            'ITA': 'https://www.countryflags.com/wp-content/uploads/italy-flag-png-large.png',
+            'GRE': 'https://www.countryflags.com/wp-content/uploads/greece-flag-png-large.png',
+            'TUR': 'https://www.countryflags.com/wp-content/uploads/turkey-flag-png-large.png',
+            'LTU': 'https://www.countryflags.com/wp-content/uploads/lithuania-flag-png-large.png',
+            'SLO': 'https://www.countryflags.com/wp-content/uploads/slovenia-flag-png-large.png',
+            'IND': 'https://www.countryflags.com/wp-content/uploads/india-flag-png-large.png',
+            'CHN': 'https://www.countryflags.com/wp-content/uploads/china-flag-png-large.png',
+            'MDA': 'https://flagcdn.com/w80/md.png',
+            'EST': 'https://www.countryflags.com/wp-content/uploads/estonia-flag-png-large.png',
+            'AUT': 'https://www.countryflags.com/wp-content/uploads/austria-flag-png-large.png',
+            'SUI': 'https://www.countryflags.com/wp-content/uploads/switzerland-flag-png-large.png',
+            'NOR': 'https://www.countryflags.com/wp-content/uploads/norway-flag-png-large.png',
+            'DEN': 'https://www.countryflags.com/wp-content/uploads/denmark-flag-png-large.png',
+            'POR': 'https://www.countryflags.com/wp-content/uploads/portugal-flag-png-large.png',
+            'SCO': 'https://flagcdn.com/w80/gb-sct.png',
+            'ENG': 'https://flagcdn.com/w80/gb-eng.png'
+        };
+        
+        // Function to extract country code from medalist string
+        function extractCountryCode(medalistString) {
+            const match = medalistString.match(/\(([A-Z]{3,4})\)$/);
+            return match ? match[1] : '';
+        }
+        
+        // Function to extract name from medalist string
+        function extractName(medalistString) {
+            return medalistString.replace(/\s*\([A-Z]{3,4}\)$/, '').trim();
+        }
+        
+        // Function to format medalist cell
+        function formatMedalistCell(medalistString, medalType) {
+            const countryCode = extractCountryCode(medalistString);
+            const name = extractName(medalistString);
+            const flagUrl = countryFlags[countryCode] || '';
+            
+            let medalIcon = '';
+            if (medalType === 'gold') {
+                medalIcon = '<span class="gold-icon"></span>';
+            } else if (medalType === 'silver') {
+                medalIcon = '<span class="silver-icon"></span>';
+            } else if (medalType === 'bronze') {
+                medalIcon = '<span class="bronze-icon"></span>';
+            }
+            
+            let html = medalIcon;
+            if (flagUrl) {
+                html += `<img src="${flagUrl}" class="flag-icon" alt="${countryCode}">`;
+            }
+            html += `${name}`;
+            if (countryCode) {
+                html += ` (${countryCode})`;
+            }
+            
+            return html;
+        }
+        
+        // Load data from CSV
+        function loadChampionshipData() {
+            // Use the specific GID for the Individual(W) sheet
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRQoOsTCzlV9qHM9ppmJfVcqVKOJinUSethbtteo69Cvr4ImsNkCSl8EXR7dzz29So5awPr2o-KQJc5/pub?gid=0&single=true&output=csv';
+            
+            Papa.parse(csvUrl, {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    const data = results.data;
+                    const tableBody = document.getElementById('championshipTableBody');
+                    const loadingSpinner = document.getElementById('loadingSpinner');
+                    const table = document.getElementById('championshipTable');
+                    const errorMessage = document.getElementById('errorMessage');
+                    
+                    // Clear loading spinner
+                    loadingSpinner.style.display = 'none';
+                    
+                    if (data && data.length > 0) {
+                        // Clear existing content
+                        tableBody.innerHTML = '';
+                        
+                        // Sort data by year (descending)
+                        data.sort((a, b) => (b.Year || 0) - (a.Year || 0));
+                        
+                        // Create table rows
+                        data.forEach(row => {
+                            if (row.Year) { // Skip empty rows
+                                const tr = document.createElement('tr');
+                                tr.className = 'gold-medal';
+                                
+                                // Year
+                                const yearTd = document.createElement('td');
+                                yearTd.textContent = row.Year;
+                                tr.appendChild(yearTd);
+                                
+                                // Venue
+                                const venueTd = document.createElement('td');
+                                venueTd.textContent = row.Venue || '';
+                                tr.appendChild(venueTd);
+                                
+                                // Gold Medalist
+                                const goldTd = document.createElement('td');
+                                goldTd.innerHTML = formatMedalistCell(row['Gold Medalist'] || '', 'gold');
+                                tr.appendChild(goldTd);
+                                
+                                // Silver Medalist
+                                const silverTd = document.createElement('td');
+                                silverTd.innerHTML = formatMedalistCell(row['Silver Medalist'] || '', 'silver');
+                                tr.appendChild(silverTd);
+                                
+                                // Bronze Medalist
+                                const bronzeTd = document.createElement('td');
+                                bronzeTd.innerHTML = formatMedalistCell(row['Bronze Medalist'] || '', 'bronze');
+                                tr.appendChild(bronzeTd);
+                                
+                                // Details link
+                                const detailsTd = document.createElement('td');
+                                if (row.Link) {
+                                    detailsTd.innerHTML = `<a href="${row.Link}" target="_blank"><i class="fas fa-external-link-alt"></i> Details</a>`;
+                                } else {
+                                    detailsTd.innerHTML = '<span style="color: #999;">-</span>';
+                                }
+                                tr.appendChild(detailsTd);
+                                
+                                
+                                tableBody.appendChild(tr);
+                            }
+                        });
+                        
+                        // Show table
+                        table.style.display = 'table';
+                    } else {
+                        errorMessage.textContent = 'No data found in the spreadsheet.';
+                        errorMessage.style.display = 'block';
+                    }
+                },
+                error: function(error) {
+                    const loadingSpinner = document.getElementById('loadingSpinner');
+                    const errorMessage = document.getElementById('errorMessage');
+                    
+                    loadingSpinner.style.display = 'none';
+                    errorMessage.textContent = 'Error loading data: ' + error.message;
+                    errorMessage.style.display = 'block';
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load championship data
+            loadChampionshipData();
+            
+            // Back to top functionality
+            document.querySelector('.back-to-top').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

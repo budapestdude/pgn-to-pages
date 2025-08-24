@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EU-Cup 02nd final play-off</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav-button {
+            background: white;
+            color: #4a90e2;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .team-badge {
+            background: #4a90e2;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .podium {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .podium h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .podium-place {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 220px;
+            transition: transform 0.3s ease;
+        }
+        
+        .podium-place:hover {
+            transform: translateY(-5px);
+        }
+        
+        .podium-place.first {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            order: 2;
+            transform: scale(1.1);
+        }
+        
+        .podium-place.second {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            order: 1;
+        }
+        
+        .podium-place.third {
+            background: linear-gradient(135deg, #cd7f32, #daa520);
+            order: 3;
+        }
+        
+        .medal {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .standings {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .medal-winner {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7) !important;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <a href="/tournaments/index.html" class="nav-button">
+                <i class="fas fa-home"></i> Back to Tournaments
+            </a>
+        </div>
+        
+        <div class="header">
+            <div class="team-badge">TEAM TOURNAMENT</div>
+            <h1>EU-Cup 02nd final play-off</h1>
+            <div class="subtitle">Bad Lauterberg • 1979.11.27</div>
+        </div>
+        
+        
+        <div class="podium">
+            <h2>🏆 Winning Teams</h2>
+            <div class="podium-container">
+                
+                    <div class="podium-place first">
+                        <span class="medal">🥇</span>
+                        <h3>Burevestnik</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            4 MP
+                        </div>
+                        <div style="color: #666;">
+                            4 game points
+                        </div>
+                    </div>
+                
+                    <div class="podium-place second">
+                        <span class="medal">🥈</span>
+                        <h3>Rotterdam Volmac</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            0 MP
+                        </div>
+                        <div style="color: #666;">
+                            2 game points
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="standings">
+            <h3>Team Standings</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Team</th>
+                        <th>Match Points</th>
+                        <th>Game Points</th>
+                        <th>Matches</th>
+                        <th>W-D-L</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr class="medal-winner">
+                            <td>🥇</td>
+                            <td>Burevestnik</td>
+                            <td><strong>4</strong></td>
+                            <td>4</td>
+                            <td>2</td>
+                            <td>2-0-0</td>
+                        </tr>
+                    
+                        <tr class="medal-winner">
+                            <td>🥈</td>
+                            <td>Rotterdam Volmac</td>
+                            <td><strong>0</strong></td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>0-0-2</td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

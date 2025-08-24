@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGN Tournament Landing Page Generator</title>
+    <style>
+        /* Main Styles - Matching landing page */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            transition: background-color 0.5s ease;
+        }
+        
+        .chess-calendar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        /* Enhanced Header Styles - Lighter blue theme */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0 30px;
+            border-bottom: none;
+            position: relative;
+            transform: translateY(0);
+            transition: transform 0.5s ease;
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjUgMjVMNTAgNTBMMjUgNzVMNTAgMTAwTDc1IDc1TDUwIDUwTDc1IDI1TDUwIDBMMjUgMjVaIiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDUpIiAvPjwvc3ZnPg==');
+            background-size: 100px 100px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-header h1 {
+            color: #ffffff;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-header h1::before,
+        .page-header h1::after {
+            content: '♔';
+            font-size: 2rem;
+            margin: 0 15px;
+            color: #d4af37;
+            vertical-align: middle;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Powered by Chessdom button */
+        .powered-by {
+            display: inline-block;
+            margin: 20px auto 0;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .powered-by:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        /* Controls container */
+        .controls-container {
+            margin-bottom: 25px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Form elements */
+        input[type="file"],
+        textarea,
+        button {
+            margin-bottom: 15px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 2px solid #4a90e2;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+        
+        button.process-btn {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 0 auto;
+        }
+        
+        button.process-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Tournament buttons */
+        .month-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .month-buttons button {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .month-buttons button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .month-buttons button.selected {
+            background: linear-gradient(135deg, #1c2e40, #3a5481);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Table Styles */
+        .table-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:nth-child(odd):not(.month-divider) {
+            background-color: #ffffff;
+        }
+        
+        tr:hover:not(.month-divider) {
+            background-color: #f0f7ff;
+        }
+        
+        /* Contact Button - Styled to match landing page */
+        .contact-button, .download-button {
+            display: block;
+            margin: 20px auto 25px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white !important;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none !important;
+            max-width: 80%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: center;
+        }
+        
+        .contact-button:hover, .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .contact-button::after, .download-button::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: #d4af37;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        .contact-button:hover::after, .download-button:hover::after {
+            width: 70%;
+        }
+        
+        /* Special event highlighting */
+        .special-event {
+            background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%) !important;
+            position: relative;
+            transition: all 0.3s ease;
+            border-left: 4px solid #d4af37 !important;
+        }
+        
+        .special-event:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        }
+        
+        .special-event td {
+            border-color: #fff9c4;
+        }
+        
+        .special-event td:first-child::before {
+            content: "★";
+            color: #d4af37;
+            margin-right: 8px;
+            font-size: 1.1em;
+            text-shadow: 0 0 3px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* Loading indicator */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .loading-spinner {
+            font-size: 3rem;
+            color: #d4af37;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+        
+        /* Error message styling */
+        .error-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            display: none;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        /* Dark Theme */
+        body.dark-theme {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        body.dark-theme .controls-container,
+        body.dark-theme .table-container {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+        }
+        
+        body.dark-theme .page-header {
+            background: linear-gradient(135deg, #2a5a8a, #3d80c9);
+        }
+        
+        body.dark-theme tr:nth-child(even):not(.month-divider) {
+            background-color: #333333;
+        }
+        
+        body.dark-theme tr:nth-child(odd):not(.month-divider) {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-theme tr:hover:not(.month-divider) {
+            background-color: #3a3a3a;
+        }
+        
+        body.dark-theme .month-divider {
+            background: linear-gradient(135deg, #121921, #2a3a50);
+        }
+        
+        body.dark-theme .special-event {
+            background: linear-gradient(135deg, #433b10, #3a3522) !important;
+            border-left: 4px solid #d4af37 !important;
+        }
+        
+        body.dark-theme textarea {
+            background-color: #333333;
+            color: #f0f0f0;
+            border-color: #81b6f5;
+        }
+        
+        body.dark-theme .powered-by {
+            background: rgba(0, 0, 0, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-theme .powered-by:hover {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+        
+        /* Preview container */
+        .preview-container {
+            margin-top: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        body.dark-theme .preview-container {
+            background-color: #333333;
+            border-color: #444444;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-header h1::before,
+            .page-header h1::after {
+                font-size: 1.8rem;
+                margin: 0 10px;
+            }
+            
+            .month-buttons {
+                gap: 5px;
+            }
+            
+            .month-buttons button {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .page-header h1::before,
+            .page-header h1::after {
+                font-size: 1.5rem;
+                margin: 0 8px;
+            }
+            
+            .month-buttons button {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .powered-by {
+                margin-top: 15px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .page-header h1::before,
+            .page-header h1::after {
+                display: block;
+                margin: 10px auto;
+            }
+            
+            .download-button {
+                font-size: 0.9rem;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
+    
+    <div class="chess-calendar-container">
+        <div class="page-header">
+            <div class="header-content">
+                <h1>PGN Tournament Landing Page Generator</h1>
+                <a href="https://www.chessdom.com" class="powered-by" target="_blank">Powered by Chessdom</a>
+            </div>
+        </div>
+        
+        <div class="controls-container">
+            <h2>Upload PGN File</h2>
+            <input type="file" id="pgnFile" accept=".pgn">
+            
+            <h2>Or Paste PGN Text</h2>
+            <textarea id="pgnText" placeholder="Paste PGN content here..."></textarea>
+            
+            <button id="processBtn" class="process-btn">Process PGN</button>
+        </div>
+        
+        <div class="loading" id="loadingIndicator">
+            <div class="loading-spinner">♔</div>
+            <p>Processing PGN data...</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        
+        <div class="table-container" id="tournamentsContainer" style="display: none;">
+            <h2>Found Tournaments</h2>
+            <p>Select a tournament to view and download its landing page:</p>
+            
+            <div class="month-buttons" id="tournamentButtons"></div>
+            
+            <div id="selectedTournamentContainer" style="display: none;">
+                <h3 id="selectedTournamentName"></h3>
+                <button id="downloadBtn" class="download-button">Download Landing Page</button>
+                
+                <h4>Preview:</h4>
+                <div class="preview-container" id="tournamentPreview">
+                    <!-- Tournament preview will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const themeToggle = document.getElementById('themeToggle');
+            const pgnFileInput = document.getElementById('pgnFile');
+            const pgnTextarea = document.getElementById('pgnText');
+            const processBtn = document.getElementById('processBtn');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const errorMessage = document.getElementById('errorMessage');
+            const tournamentsContainer = document.getElementById('tournamentsContainer');
+            const tournamentButtons = document.getElementById('tournamentButtons');
+            const selectedTournamentContainer = document.getElementById('selectedTournamentContainer');
+            const selectedTournamentName = document.getElementById('selectedTournamentName');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const tournamentPreview = document.getElementById('tournamentPreview');
+            
+            // State
+            let pgnText = '';
+            let tournaments = [];
+            let generatedHtml = {};
+            let selectedTournament = null;
+            
+            // Event Listeners
+            themeToggle.addEventListener('click', toggleTheme);
+            pgnFileInput.addEventListener('change', handleFileUpload);
+            processBtn.addEventListener('click', processPgn);
+            downloadBtn.addEventListener('click', downloadHtml);
+            
+            // Toggle dark theme
+            function toggleTheme() {
+                document.body.classList.toggle('dark-theme');
+                if (document.body.classList.contains('dark-theme')) {
+                    themeToggle.textContent = '☀️ Light Mode';
+                } else {
+                    themeToggle.textContent = '🌙 Dark Mode';
+                }
+            }
+            
+            // Handle file upload
+            function handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        pgnTextarea.value = e.target.result;
+                    };
+                    reader.readAsText(file);
+                }
+            }
+            
+            // Process PGN
+            function processPgn() {
+                pgnText = pgnTextarea.value.trim();
+                if (!pgnText) {
+                    showError('Please upload a PGN file or paste PGN text.');
+                    return;
+                }
+                
+                showLoading(true);
+                hideError();
+                
+                // Use setTimeout to allow the UI to update before processing
+                setTimeout(() => {
+                    try {
+                        parsePgn(pgnText);
+                        showTournaments();
+                    } catch (error) {
+                        showError('Error parsing PGN: ' + error.message);
+                    } finally {
+                        showLoading(false);
+                    }
+                }, 50);
+            }
+            
+            // Parse PGN
+            function parsePgn(pgnContent) {
+                // Split the PGN content by games (separated by blank lines)
+                const games = pgnContent.split(/\n\s*\n/).filter(game => game.trim());
+                
+                // Extract tournament information from each game
+                const tournamentMap = {};
+                
+                games.forEach(game => {
+                    // Extract headers
+                    const headers = {};
+                    const headerRegex = /\[\s*(\w+)\s*"([^"]*)"\s*\]/g;
+                    let match;
+                    
+                    while ((match = headerRegex.exec(game)) !== null) {
+                        headers[match[1]] = match[2];
+                    }
+                    
+                    // Get tournament name
+                    const tournamentName = headers.Event || 'Unknown Tournament';
+                    const tournamentDate = headers.Date || 'Unknown Date';
+                    const tournamentSite = headers.Site || 'Unknown Site';
+                    
+                    // Create or update tournament entry
+                    if (!tournamentMap[tournamentName]) {
+                        tournamentMap[tournamentName] = {
+                            name: tournamentName,
+                            date: tournamentDate,
+                            site: tournamentSite,
+                            eventType: headers.EventType || '',
+                            eventDate: headers.EventDate || '',
+                            eventSponsor: headers.EventSponsor || '',
+                            eventCountry: headers.EventCountry || '',
+                            eventCity: headers.EventCity || '',
+                            section: headers.Section || '',
+                            stage: headers.Stage || '',
+                            timeControl: headers.TimeControl || '',
+                            mode: headers.Mode || '',  // OTB, ICS, etc.
+                            arbiter: headers.Arbiter || '',
+                            rounds: headers.Rounds || '',
+                            annotator: headers.Annotator || '',
+                            allHeaders: {},
+                            ecoStats: {},
+                            openingStats: {},
+                            roundStats: {},
+                            games: [],
+                            players: new Set(),
+                            playerDetails: {},
+                            dateRange: {
+                                start: null,
+                                end: null
+                            },
+                            location: {
+                                city: '',
+                                country: ''
+                            }
+                        };
+                    }
+
+                    // Try to extract location information from Site field
+                    if (tournamentSite && tournamentSite !== '?' && tournamentMap[tournamentName].location.city === '') {
+                        // Common formats: "City, Country" or just "City"
+                        const siteParts = tournamentSite.split(',').map(part => part.trim());
+                        if (siteParts.length >= 2) {
+                            tournamentMap[tournamentName].location.city = siteParts[0];
+                            tournamentMap[tournamentName].location.country = siteParts[siteParts.length - 1];
+                        } else if (siteParts.length === 1) {
+                            // If no comma, assume it's just a city or country
+                            tournamentMap[tournamentName].location.city = siteParts[0];
+                        }
+                    }
+
+                    // Use EventCountry and EventCity if available
+                    if (headers.EventCountry && tournamentMap[tournamentName].location.country === '') {
+                        tournamentMap[tournamentName].location.country = headers.EventCountry;
+                    }
+                    
+                    if (headers.EventCity && tournamentMap[tournamentName].location.city === '') {
+                        tournamentMap[tournamentName].location.city = headers.EventCity;
+                    }
+
+                    // Store all headers for reference
+                    Object.keys(headers).forEach(key => {
+                        if (!tournamentMap[tournamentName].allHeaders[key]) {
+                            tournamentMap[tournamentName].allHeaders[key] = headers[key];
+                        }
+                    });
+                    
+                    // Track ECO codes for statistics
+                    if (headers.ECO) {
+                        if (!tournamentMap[tournamentName].ecoStats[headers.ECO]) {
+                            tournamentMap[tournamentName].ecoStats[headers.ECO] = 1;
+                        } else {
+                            tournamentMap[tournamentName].ecoStats[headers.ECO]++;
+                        }
+                    }
+                    
+                    // Track openings for statistics
+                    if (headers.Opening) {
+                        if (!tournamentMap[tournamentName].openingStats[headers.Opening]) {
+                            tournamentMap[tournamentName].openingStats[headers.Opening] = 1;
+                        } else {
+                            tournamentMap[tournamentName].openingStats[headers.Opening]++;
+                        }
+                    }
+                    
+                    // Track rounds for tournament structure analysis
+                    if (headers.Round) {
+                        if (!tournamentMap[tournamentName].roundStats[headers.Round]) {
+                            tournamentMap[tournamentName].roundStats[headers.Round] = 1;
+                        } else {
+                            tournamentMap[tournamentName].roundStats[headers.Round]++;
+                        }
+                    }
+                    
+                    // Add player info with additional details
+                    if (headers.White) {
+                        tournamentMap[tournamentName].players.add(headers.White);
+                        if (!tournamentMap[tournamentName].playerDetails[headers.White]) {
+                            tournamentMap[tournamentName].playerDetails[headers.White] = {
+                                name: headers.White,
+                                title: headers.WhiteTitle || '',
+                                elo: headers.WhiteElo || '',
+                                fideId: headers.WhiteFideId || '',
+                                team: headers.WhiteTeam || '',
+                                country: headers.WhiteCountry || ''
+                            };
+                        }
+                    }
+                    
+                    if (headers.Black) {
+                        tournamentMap[tournamentName].players.add(headers.Black);
+                        if (!tournamentMap[tournamentName].playerDetails[headers.Black]) {
+                            tournamentMap[tournamentName].playerDetails[headers.Black] = {
+                                name: headers.Black,
+                                title: headers.BlackTitle || '',
+                                elo: headers.BlackElo || '',
+                                fideId: headers.BlackFideId || '',
+                                team: headers.BlackTeam || '',
+                                country: headers.BlackCountry || ''
+                            };
+                        }
+                    }
+                    
+                    // Add game result
+                    if (headers.White && headers.Black && headers.Result) {
+                        tournamentMap[tournamentName].games.push({
+                            white: headers.White,
+                            black: headers.Black,
+                            result: headers.Result,
+                            round: headers.Round || '?',
+                            date: headers.UTCDate || headers.Date || '',
+                            eco: headers.ECO || '',
+                            opening: headers.Opening || '',
+                            variation: headers.Variation || '',
+                            plyCount: headers.PlyCount || '',
+                            termination: headers.Termination || '',
+                            timeControl: headers.TimeControl || ''
+                        });
+                    }
+                    
+                    // Update tournament date range if a game date is available
+                    if (headers.UTCDate || headers.Date) {
+                        const gameDate = headers.UTCDate || headers.Date;
+                        
+                        // Only process valid dates (not containing '?')
+                        if (!gameDate.includes('?')) {
+                            if (!tournamentMap[tournamentName].dateRange.start || gameDate < tournamentMap[tournamentName].dateRange.start) {
+                                tournamentMap[tournamentName].dateRange.start = gameDate;
+                            }
+                            
+                            if (!tournamentMap[tournamentName].dateRange.end || gameDate > tournamentMap[tournamentName].dateRange.end) {
+                                tournamentMap[tournamentName].dateRange.end = gameDate;
+                            }
+                        }
+                    }
+                });
+                
+                // Convert tournament map to array and calculate standings
+                tournaments = Object.values(tournamentMap).map(tournament => {
+                    // Calculate standings
+                    const playerStats = {};
+                    
+                    // Initialize player stats
+                    Array.from(tournament.players).forEach(player => {
+                        const playerDetail = tournament.playerDetails[player] || {};
+                        
+                        playerStats[player] = {
+                            name: player,
+                            title: playerDetail.title || '',
+                            elo: playerDetail.elo || '',
+                            country: playerDetail.country || '',
+                            team: playerDetail.team || '',
+                            games: 0,
+                            wins: 0,
+                            draws: 0,
+                            losses: 0,
+                            score: 0,
+                            whiteGames: 0,
+                            whiteWins: 0,
+                            whiteDraws: 0,
+                            whiteLosses: 0,
+                            blackGames: 0,
+                            blackWins: 0,
+                            blackDraws: 0,
+                            blackLosses: 0,
+                            performance: 0,
+                            opponents: [],
+                            opponentRatings: []
+                        };
+                    });
+                    
+                    // Calculate stats from games
+                    tournament.games.forEach(game => {
+                        const white = game.white;
+                        const black = game.black;
+                        
+                        playerStats[white].games++;
+                        playerStats[white].whiteGames++;
+                        
+                        playerStats[black].games++;
+                        playerStats[black].blackGames++;
+                        
+                        // Track opponents for tie-break calculations
+                        playerStats[white].opponents.push(black);
+                        playerStats[black].opponents.push(white);
+                        
+                        // Track opponent ratings for performance calculation
+                        if (playerStats[black].elo) {
+                            playerStats[white].opponentRatings.push(parseInt(playerStats[black].elo));
+                        }
+                        if (playerStats[white].elo) {
+                            playerStats[black].opponentRatings.push(parseInt(playerStats[white].elo));
+                        }
+                        
+                        if (game.result === '1-0') {
+                            playerStats[white].wins++;
+                            playerStats[white].whiteWins++;
+                            playerStats[white].score += 1;
+                            
+                            playerStats[black].losses++;
+                            playerStats[black].blackLosses++;
+                        } else if (game.result === '0-1') {
+                            playerStats[black].wins++;
+                            playerStats[black].blackWins++;
+                            playerStats[black].score += 1;
+                            
+                            playerStats[white].losses++;
+                            playerStats[white].whiteLosses++;
+                        } else if (game.result === '1/2-1/2') {
+                            playerStats[white].draws++;
+                            playerStats[white].whiteDraws++;
+                            playerStats[white].score += 0.5;
+                            
+                            playerStats[black].draws++;
+                            playerStats[black].blackDraws++;
+                            playerStats[black].score += 0.5;
+                        }
+                    });
+                    
+                    // Calculate additional stats
+                    Object.values(playerStats).forEach(player => {
+                        // Calculate performance rating based on opponent average
+                        if (player.opponentRatings.length > 0 && player.games > 0) {
+                            const avgOpponentRating = player.opponentRatings.reduce((a, b) => a + b, 0) / player.opponentRatings.length;
+                            const percentage = player.score / player.games;
+                            
+                            // Convert percentage to rating difference
+                            let ratingDiff = 0;
+                            if (percentage > 0.99) ratingDiff = 800;
+                            else if (percentage < 0.01) ratingDiff = -800;
+                            else {
+                                ratingDiff = -400 * Math.log10(1 / percentage - 1);
+                            }
+                            
+                            player.performance = Math.round(avgOpponentRating + ratingDiff);
+                        }
+                    });
+                    
+                    // Get tournament rounds
+                    const roundNumbers = Object.keys(tournament.roundStats);
+                    let maxRound = 0;
+                    
+                    roundNumbers.forEach(round => {
+                        // Handle formats like "1.1" or "1" or "Quarter-final"
+                        const roundNumber = parseFloat(round);
+                        if (!isNaN(roundNumber) && roundNumber > maxRound) {
+                            maxRound = roundNumber;
+                        }
+                    });
+                    
+                    // Determine tournament type based on game count and player count
+                    let tournamentType = '';
+                    const playerCount = tournament.players.size;
+                    const gameCount = tournament.games.length;
+                    
+                    if (playerCount > 0) {
+                        const roundRobinGameCount = playerCount * (playerCount - 1) / 2;
+                        const doubleRoundRobinGameCount = playerCount * (playerCount - 1);
+                        
+                        if (Math.abs(gameCount - roundRobinGameCount) <= playerCount / 2) {
+                            tournamentType = 'Round Robin';
+                        } else if (Math.abs(gameCount - doubleRoundRobinGameCount) <= playerCount) {
+                            tournamentType = 'Double Round Robin';
+                        } else if (maxRound > 0 && maxRound < playerCount - 1) {
+                            tournamentType = 'Swiss';
+                        } else if (tournament.games.some(game => game.round.includes('final'))) {
+                            tournamentType = 'Knockout';
+                        }
+                    }
+                    
+                    // Get most popular openings
+                    const popularOpenings = Object.entries(tournament.openingStats)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 5)
+                        .map(([opening, count]) => ({ opening, count }));
+                    
+                    // Get most popular ECO codes
+                    const popularEco = Object.entries(tournament.ecoStats)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 5)
+                        .map(([eco, count]) => ({ eco, count }));
+                    
+                    // Extract date range
+                    let dateRange = '';
+                    if (tournament.dateRange.start && tournament.dateRange.end) {
+                        if (tournament.dateRange.start === tournament.dateRange.end) {
+                            dateRange = formatDate(tournament.dateRange.start);
+                        } else {
+                            dateRange = `${formatDate(tournament.dateRange.start)} to ${formatDate(tournament.dateRange.end)}`;
+                        }
+                    } else {
+                        dateRange = formatDate(tournament.date);
+                    }
+                    
+                    // Convert player stats to array and sort by score
+                    const standings = Object.values(playerStats).sort((a, b) => {
+                        if (b.score !== a.score) return b.score - a.score;
+                        // Secondary sort by head-to-head if applicable
+                        if (a.opponents.includes(b.name) && b.opponents.includes(a.name)) {
+                            const aIndex = a.opponents.indexOf(b.name);
+                            const bIndex = b.opponents.indexOf(a.name);
+                            // Find their game result
+                            let h2hResult = 0;
+                            tournament.games.forEach(game => {
+                                if ((game.white === a.name && game.black === b.name) ||
+                                    (game.white === b.name && game.black === a.name)) {
+                                    if ((game.white === a.name && game.result === '1-0') ||
+                                        (game.black === a.name && game.result === '0-1')) {
+                                        h2hResult = 1; // a won
+                                    } else if ((game.white === b.name && game.result === '1-0') ||
+                                               (game.black === b.name && game.result === '0-1')) {
+                                        h2hResult = -1; // b won
+                                    }
+                                }
+                            });
+                            if (h2hResult !== 0) return -h2hResult;
+                        }
+                        // Tertiary sort by number of wins
+                        if (b.wins !== a.wins) return b.wins - a.wins;
+                        // Final sort by name
+                        return a.name.localeCompare(b.name);
+                    });
+                    
+                    // Find notable games (upsets, long games, decisive games between top players)
+                    const notableGames = [];
+                    tournament.games.forEach(game => {
+                        const whitePlayer = playerStats[game.white];
+                        const blackPlayer = playerStats[game.black];
+                        
+                        if (whitePlayer && blackPlayer) {
+                            const whiteRank = standings.findIndex(p => p.name === game.white) + 1;
+                            const blackRank = standings.findIndex(p => p.name === game.black) + 1;
+                            
+                            // Look for upsets (lower ranked beating higher ranked by significant margin)
+                            if (Math.abs(whiteRank - blackRank) >= 5 && game.result !== '1/2-1/2') {
+                                if ((whiteRank > blackRank + 5 && game.result === '1-0') ||
+                                    (blackRank > whiteRank + 5 && game.result === '0-1')) {
+                                    notableGames.push({
+                                        ...game,
+                                        type: 'upset',
+                                        description: `Upset: ${game.result === '1-0' ? game.white : game.black} defeats higher-ranked opponent`
+                                    });
+                                }
+                            }
+                            
+                            // Look for games between top players
+                            if (whiteRank <= 3 && blackRank <= 3 && game.result !== '1/2-1/2') {
+                                notableGames.push({
+                                    ...game,
+                                    type: 'top_clash',
+                                    description: `Top players clash: ${game.white} vs ${game.black}`
+                                });
+                            }
+                            
+                            // Look for long games (high ply count)
+                            if (game.plyCount && parseInt(game.plyCount) > 80) {
+                                notableGames.push({
+                                    ...game,
+                                    type: 'marathon',
+                                    description: `Marathon game: ${Math.ceil(parseInt(game.plyCount) / 2)} moves`
+                                });
+                            }
+                        }
+                    });
+                    
+                    // Full location object
+                    const locationInfo = {
+                        city: tournament.location.city || (tournament.site !== '?' ? tournament.site : ''),
+                        country: tournament.location.country || tournament.eventCountry || '',
+                        display: ''
+                    };
+                    
+                    // Create display location string
+                    if (locationInfo.city && locationInfo.country) {
+                        locationInfo.display = `${locationInfo.city}, ${locationInfo.country}`;
+                    } else if (locationInfo.city) {
+                        locationInfo.display = locationInfo.city;
+                    } else if (locationInfo.country) {
+                        locationInfo.display = locationInfo.country;
+                    } else {
+                        locationInfo.display = tournament.site !== '?' ? tournament.site : 'Unknown Location';
+                    }
+                    
+                    return {
+                        ...tournament,
+                        standings,
+                        players: Array.from(tournament.players),
+                        totalGames: tournament.games.length,
+                        whiteWins: tournament.games.filter(g => g.result === '1-0').length,
+                        blackWins: tournament.games.filter(g => g.result === '0-1').length,
+                        draws: tournament.games.filter(g => g.result === '1/2-1/2').length,
+                        dateRange,
+                        tournamentType: tournamentType || tournament.eventType || '',
+                        popularOpenings,
+                        popularEco,
+                        notableGames: notableGames.slice(0, 5), // Keep top 5 notable games
+                        maxRound,
+                        location: locationInfo
+                    };
+                });
+                
+                // Generate HTML for each tournament
+                generatedHtml = {};
+                tournaments.forEach(tournament => {
+                    generatedHtml[tournament.name] = generateTournamentLandingPage(tournament);
+                });
+            }
+            
+            // Generate comprehensive tournament landing page
+            function generateTournamentLandingPage(tournament) {
+                const medal = ['🥇', '🥈', '🥉'];
+                const podium = tournament.standings.slice(0, 3);
+                
+                return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${escapeHtml(tournament.name)} - Tournament Results</title>
+    <style>
+        /* Main Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #4a90e2 0%, #81b6f5 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjUgMjVMNTAgNTBMMjUgNzVMNTAgMTAwTDc1IDc1TDUwIDUwTDc1IDI1TDUwIDBMMjUgMjVaIiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDUpIiAvPjwvc3ZnPg==');
+            background-size: 100px 100px;
+            opacity: 0.1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 700;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .hero .details {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        /* Podium Section */
+        .podium {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .podium h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .podium-place {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 200px;
+            transition: transform 0.3s ease;
+        }
+        
+        .podium-place:hover {
+            transform: translateY(-5px);
+        }
+        
+        .podium-place.first {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            order: 2;
+            transform: scale(1.1);
+        }
+        
+        .podium-place.second {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            order: 1;
+        }
+        
+        .podium-place.third {
+            background: linear-gradient(135deg, #cd7f32, #daa520);
+            order: 3;
+        }
+        
+        .medal {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .podium-place h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .podium-place .score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .podium-place .details {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: #2c3e50;
+        }
+        
+        /* Statistics Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card h3 {
+            color: #2c3e50;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .stat-label {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        /* Notable Games */
+        .notable-games {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .notable-games h3 {
+            color: #2c3e50;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .game-highlight {
+            background: #f8f9fa;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        
+        .game-highlight:last-child {
+            margin-bottom: 0;
+        }
+        
+        .game-players {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .game-details {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Full Standings Table */
+        .standings {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        .standings h3 {
+            color: #2c3e50;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .medal-winner {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7) !important;
+            font-weight: bold;
+        }
+        
+        .medal-winner:hover {
+            background: linear-gradient(135deg, #ffecb3, #ffe082) !important;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Dark Theme */
+        body.dark-theme {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f0f0f0;
+        }
+        
+        body.dark-theme .hero {
+            background: linear-gradient(135deg, #2a5a8a 0%, #3d80c9 100%);
+        }
+        
+        body.dark-theme .podium,
+        body.dark-theme .stat-card,
+        body.dark-theme .notable-games,
+        body.dark-theme .standings {
+            background: #2d3748;
+            color: #f0f0f0;
+        }
+        
+        body.dark-theme .stat-item {
+            border-bottom-color: #4a5568;
+        }
+        
+        body.dark-theme tr:nth-child(even) {
+            background-color: #374151;
+        }
+        
+        body.dark-theme tr:hover {
+            background-color: #4a5568;
+        }
+        
+        body.dark-theme .game-highlight {
+            background: #374151;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .podium-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .podium-place.first {
+                order: 1;
+                transform: none;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-theme .footer {
+            background: #2d3748;
+            color: #a0aec0;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="document.body.classList.toggle('dark-theme'); this.textContent = document.body.classList.contains('dark-theme') ? '☀️ Light Mode' : '🌙 Dark Mode'">
+        🌙 Dark Mode
+    </button>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>${escapeHtml(tournament.name)}</h1>
+                <div class="subtitle">${tournament.location.display}</div>
+                <div class="details">${tournament.dateRange}${tournament.tournamentType ? ' • ' + tournament.tournamentType : ''}</div>
+            </div>
+        </div>
+
+        <!-- Medal Winners Podium -->
+        <div class="podium">
+            <h2>🏆 Medal Winners</h2>
+            <div class="podium-container">
+                ${podium.map((player, index) => `
+                    <div class="podium-place ${index === 0 ? 'first' : index === 1 ? 'second' : 'third'}">
+                        <span class="medal">${medal[index]}</span>
+                        <h3>${escapeHtml(player.name)}</h3>
+                        <div class="score">${player.score} pts</div>
+                        <div class="details">
+                            ${player.games} games • ${player.wins}W ${player.draws}D ${player.losses}L
+                            ${player.elo ? `<br>Rating: ${player.elo}` : ''}
+                            ${player.country ? `<br>${escapeHtml(player.country)}` : ''}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <!-- Tournament Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>🎯 Tournament Overview</h3>
+                <div class="stat-item">
+                    <span class="stat-label">Total Players</span>
+                    <span class="stat-value">${tournament.players.length}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Games Played</span>
+                    <span class="stat-value">${tournament.totalGames}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Tournament Type</span>
+                    <span class="stat-value">${tournament.tournamentType || 'Standard'}</span>
+                </div>
+                ${tournament.maxRound ? `
+                <div class="stat-item">
+                    <span class="stat-label">Rounds</span>
+                    <span class="stat-value">${tournament.maxRound}</span>
+                </div>
+                ` : ''}
+                ${tournament.timeControl ? `
+                <div class="stat-item">
+                    <span class="stat-label">Time Control</span>
+                    <span class="stat-value">${escapeHtml(tournament.timeControl)}</span>
+                </div>
+                ` : ''}
+                ${tournament.arbiter ? `
+                <div class="stat-item">
+                    <span class="stat-label">Arbiter</span>
+                    <span class="stat-value">${escapeHtml(tournament.arbiter)}</span>
+                </div>
+                ` : ''}
+            </div>
+
+            <div class="stat-card">
+                <h3>📊 Game Results</h3>
+                <div class="stat-item">
+                    <span class="stat-label">White Wins</span>
+                    <span class="stat-value">${tournament.whiteWins} (${Math.round((tournament.whiteWins / tournament.totalGames) * 100)}%)</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Black Wins</span>
+                    <span class="stat-value">${tournament.blackWins} (${Math.round((tournament.blackWins / tournament.totalGames) * 100)}%)</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Draws</span>
+                    <span class="stat-value">${tournament.draws} (${Math.round((tournament.draws / tournament.totalGames) * 100)}%)</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Decisive Games</span>
+                    <span class="stat-value">${tournament.whiteWins + tournament.blackWins} (${Math.round(((tournament.whiteWins + tournament.blackWins) / tournament.totalGames) * 100)}%)</span>
+                </div>
+            </div>
+
+            ${tournament.popularOpenings.length > 0 ? `
+            <div class="stat-card">
+                <h3>🔍 Popular Openings</h3>
+                ${tournament.popularOpenings.slice(0, 5).map(item => `
+                    <div class="stat-item">
+                        <span class="stat-label">${escapeHtml(item.opening)}</span>
+                        <span class="stat-value">${item.count} games</span>
+                    </div>
+                `).join('')}
+            </div>
+            ` : ''}
+
+            ${tournament.standings.filter(p => p.elo).length > 0 ? `
+            <div class="stat-card">
+                <h3>⭐ Top Rated Players</h3>
+                ${tournament.standings
+                    .filter(p => p.elo)
+                    .sort((a, b) => parseInt(b.elo) - parseInt(a.elo))
+                    .slice(0, 5)
+                    .map(player => `
+                        <div class="stat-item">
+                            <span class="stat-label">${escapeHtml(player.name)}</span>
+                            <span class="stat-value">${player.elo}</span>
+                        </div>
+                    `).join('')}
+            </div>
+            ` : ''}
+        </div>
+
+        ${tournament.notableGames.length > 0 ? `
+        <!-- Notable Games -->
+        <div class="notable-games">
+            <h3>⚡ Notable Games</h3>
+            ${tournament.notableGames.map(game => `
+                <div class="game-highlight">
+                    <div class="game-players">${escapeHtml(game.white)} vs ${escapeHtml(game.black)}</div>
+                    <div class="game-details">
+                        ${escapeHtml(game.description)}
+                        ${game.round ? ` • Round ${game.round}` : ''}
+                        ${game.opening ? ` • ${escapeHtml(game.opening)}` : ''}
+                        ${game.result ? ` • Result: ${game.result}` : ''}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        ` : ''}
+
+        <!-- Complete Standings -->
+        <div class="standings">
+            <h3>📋 Complete Final Standings</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Score</th>
+                        <th>Games</th>
+                        <th>W-D-L</th>
+                        ${tournament.standings.some(p => p.elo) ? '<th>Rating</th>' : ''}
+                        ${tournament.standings.some(p => p.performance) ? '<th>Performance</th>' : ''}
+                        ${tournament.standings.some(p => p.country) ? '<th>Country</th>' : ''}
+                    </tr>
+                </thead>
+                <tbody>
+                    ${tournament.standings.map((player, index) => `
+                        <tr class="${index < 3 ? 'medal-winner' : ''}">
+                            <td>${index < 3 ? medal[index] : index + 1}</td>
+                            <td>
+                                ${player.title ? `<strong>${escapeHtml(player.title)}</strong> ` : ''}${escapeHtml(player.name)}
+                            </td>
+                            <td><strong>${player.score}</strong></td>
+                            <td>${player.games}</td>
+                            <td>${player.wins}-${player.draws}-${player.losses}</td>
+                            ${tournament.standings.some(p => p.elo) ? `<td>${player.elo || '-'}</td>` : ''}
+                            ${tournament.standings.some(p => p.performance) ? `<td>${player.performance || '-'}</td>` : ''}
+                            ${tournament.standings.some(p => p.country) ? `<td>${player.country || '-'}</td>` : ''}
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Generated by PGN Tournament Landing Page Generator</p>
+            <p>Tournament data extracted from PGN files</p>
+        </div>
+    </div>
+</body>
+</html>
+                `;
+            }
+            
+            // Format date for display
+            function formatDate(dateStr) {
+                if (!dateStr || dateStr === 'Unknown Date' || dateStr === '????-??-??') return 'Unknown Date';
+                
+                try {
+                    // Handle PGN date format (YYYY.MM.DD or YYYY.??.??)
+                    const parts = dateStr.split(/[.\/\-]/);
+                    
+                    if (parts.length < 3) return dateStr;
+                    
+                    const year = parts[0] !== '????' ? parts[0] : '????';
+                    const month = parts[1] !== '??' ? parseInt(parts[1]) : '??';
+                    const day = parts[2] !== '??' ? parseInt(parts[2]) : '??';
+                    
+                    if (year === '????' || month === '??' || day === '??') {
+                        // Handle partial dates
+                        if (year !== '????') {
+                            if (month !== '??') {
+                                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                                'July', 'August', 'September', 'October', 'November', 'December'];
+                                return `${monthNames[month-1]} ${year}`;
+                            }
+                            return year;
+                        }
+                        return dateStr;
+                    }
+                    
+                    // Format complete date
+                    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                        'July', 'August', 'September', 'October', 'November', 'December'];
+                    return `${monthNames[month-1]} ${day}, ${year}`;
+                } catch (e) {
+                    return dateStr;
+                }
+            }
+            
+            // Show loading indicator
+            function showLoading(show) {
+                loadingIndicator.style.display = show ? 'block' : 'none';
+            }
+            
+            // Show error message
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+            
+            // Hide error message
+            function hideError() {
+                errorMessage.style.display = 'none';
+            }
+            
+            // Show tournaments
+            function showTournaments() {
+                if (tournaments.length === 0) {
+                    showError('No tournaments found in the PGN file.');
+                    return;
+                }
+                
+                // Clear tournament buttons
+                tournamentButtons.innerHTML = '';
+                
+                // Create button for each tournament
+                tournaments.forEach(tournament => {
+                    const button = document.createElement('button');
+                    button.textContent = tournament.name;
+                    button.addEventListener('click', () => {
+                        selectTournament(tournament.name);
+                    });
+                    tournamentButtons.appendChild(button);
+                });
+                
+                // Show tournaments container
+                tournamentsContainer.style.display = 'block';
+                
+                // Select first tournament by default
+                selectTournament(tournaments[0].name);
+            }
+            
+            // Select tournament
+            function selectTournament(tournamentName) {
+                // Update selected tournament
+                selectedTournament = tournamentName;
+                
+                // Update buttons
+                const buttons = tournamentButtons.querySelectorAll('button');
+                buttons.forEach(button => {
+                    if (button.textContent === tournamentName) {
+                        button.classList.add('selected');
+                    } else {
+                        button.classList.remove('selected');
+                    }
+                });
+                
+                // Update tournament name
+                selectedTournamentName.textContent = tournamentName;
+                
+                // Update preview
+                updatePreview(tournamentName);
+                
+                // Show selected tournament container
+                selectedTournamentContainer.style.display = 'block';
+            }
+            
+            // Update preview
+            function updatePreview(tournamentName) {
+                const tournament = tournaments.find(t => t.name === tournamentName);
+                if (!tournament) return;
+                
+                const podium = tournament.standings.slice(0, 3);
+                const medal = ['🥇', '🥈', '🥉'];
+                
+                tournamentPreview.innerHTML = `
+                    <div style="background: linear-gradient(135deg, #4a90e2 0%, #81b6f5 100%); color: white; text-align: center; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
+                        <h2 style="margin: 0; font-size: 2rem;">${escapeHtml(tournament.name)}</h2>
+                        <p style="margin: 10px 0 0 0; opacity: 0.9;">${tournament.location.display} • ${tournament.dateRange}</p>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        ${podium.map((player, index) => `
+                            <div style="text-align: center; padding: 20px; border-radius: 10px; background: ${index === 0 ? 'linear-gradient(135deg, #ffd700, #ffed4e)' : index === 1 ? 'linear-gradient(135deg, #c0c0c0, #e8e8e8)' : 'linear-gradient(135deg, #cd7f32, #daa520)'};">
+                                <div style="font-size: 2rem; margin-bottom: 10px;">${medal[index]}</div>
+                                <div style="font-weight: bold; color: #2c3e50;">${escapeHtml(player.name)}</div>
+                                <div style="font-size: 1.2rem; font-weight: bold; color: #2c3e50; margin: 5px 0;">${player.score} pts</div>
+                                <div style="font-size: 0.9rem; color: #2c3e50;">${player.wins}W ${player.draws}D ${player.losses}L</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #4a90e2;">
+                            <h4 style="margin: 0 0 10px 0; color: #2c3e50;">Tournament Info</h4>
+                            <p style="margin: 5px 0; font-size: 0.9rem;"><strong>Players:</strong> ${tournament.players.length}</p>
+                            <p style="margin: 5px 0; font-size: 0.9rem;"><strong>Games:</strong> ${tournament.totalGames}</p>
+                            <p style="margin: 5px 0; font-size: 0.9rem;"><strong>Type:</strong> ${tournament.tournamentType || 'Standard'}</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #81b6f5;">
+                            <h4 style="margin: 0 0 10px 0; color: #2c3e50;">Results</h4>
+                            <p style="margin: 5px 0; font-size: 0.9rem;"><strong>White wins:</strong> ${tournament.whiteWins} (${Math.round((tournament.whiteWins / tournament.totalGames) * 100)}%)</p>
+                            <p style="margin: 5px 0; font-size: 0.9rem;"><strong>Black wins:</strong> ${tournament.blackWins} (${Math.round((tournament.blackWins / tournament.totalGames) * 100)}%)</p>
+                            <p style="margin: 5px 0; font-size: 0.9rem;"><strong>Draws:</strong> ${tournament.draws} (${Math.round((tournament.draws / tournament.totalGames) * 100)}%)</p>
+                        </div>
+                    </div>
+                    
+                    <div style="max-height: 400px; overflow-y: auto; background: white; border-radius: 8px; padding: 15px;">
+                        <h4 style="margin: 0 0 15px 0; color: #2c3e50;">Complete Standings (All ${tournament.standings.length} Players)</h4>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #f8f9fa;">
+                                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #dee2e6;">Rank</th>
+                                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #dee2e6;">Player</th>
+                                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #dee2e6;">Score</th>
+                                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #dee2e6;">W-D-L</th>
+                                    ${tournament.standings.some(p => p.elo) ? '<th style="text-align: left; padding: 8px; border-bottom: 1px solid #dee2e6;">Rating</th>' : ''}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tournament.standings.map((player, index) => `
+                                    <tr style="${index < 3 ? 'background: #fff3cd; font-weight: bold;' : ''}">
+                                        <td style="padding: 8px; border-bottom: 1px solid #dee2e6;">${index < 3 ? medal[index] : index + 1}</td>
+                                        <td style="padding: 8px; border-bottom: 1px solid #dee2e6;">${escapeHtml(player.name)}</td>
+                                        <td style="padding: 8px; border-bottom: 1px solid #dee2e6;">${player.score}</td>
+                                        <td style="padding: 8px; border-bottom: 1px solid #dee2e6;">${player.wins}-${player.draws}-${player.losses}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            // Download HTML
+            function downloadHtml() {
+                if (selectedTournament && generatedHtml[selectedTournament]) {
+                    const blob = new Blob([generatedHtml[selectedTournament]], {type: 'text/html'});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${selectedTournament.replace(/\s+/g, '_')}_landing_page.html`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            }
+            
+            // Escape HTML to prevent XSS
+            function escapeHtml(str) {
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+        });
+    </script>
+</body>
+</html>

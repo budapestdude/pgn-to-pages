@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Files List - Copy to Google Sheets</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .copy-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .tournament-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .filename {
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .url {
+            font-family: 'Courier New', monospace;
+            color: #4a90e2;
+            font-size: 0.8rem;
+            word-break: break-all;
+        }
+        
+        .type-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .type-team {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .type-individual {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .stats {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .copy-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .copy-feedback {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        
+        .nav-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .nav-link {
+            display: inline-block;
+            background: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #3b7ac5;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 Tournament Files List</h1>
+            <p>Generated tournament pages ready for Google Sheets integration</p>
+            <div class="copy-instructions">
+                <strong>📋 Instructions:</strong> Click "Copy Table Data" below to copy all tournament information in a format ready to paste into Google Sheets
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="copy-buttons">
+                <button class="copy-btn" onclick="copyTableData()">
+                    <i class="fas fa-copy"></i> Copy Table Data for Google Sheets
+                </button>
+                <button class="copy-btn" onclick="copyUrls()">
+                    <i class="fas fa-link"></i> Copy URLs Only
+                </button>
+            </div>
+            <div class="copy-feedback" id="copyFeedback"></div>
+            
+            <div class="table-container">
+                <table id="tournamentTable">
+                    <thead>
+                        <tr>
+                            <th>Original Name</th>
+                            <th>Standardized Name</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Teams</th>
+                            <th>Players</th>
+                            <th>Games</th>
+                            <th>Current Filename</th>
+                            <th>Full URL</th>
+                            <th>Suggested New Filename</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tournamentBody">
+                        <!-- Data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="nav-links">
+                <a href="/tournaments/index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Tournament Home
+                </a>
+                <a href="/" class="nav-link">
+                    <i class="fas fa-arrow-left"></i> Back to Main Site
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Load tournament data
+        async function loadTournaments() {
+            try {
+                const response = await fetch('/tournaments/metadata.json');
+                const data = await response.json();
+                
+                const tbody = document.getElementById('tournamentBody');
+                tbody.innerHTML = '';
+                
+                data.tournaments.forEach((tournament, index) => {
+                    const row = document.createElement('tr');
+                    
+                    // Get standardized name and create filename from it
+                    const standardizedName = standardizeTournamentName(tournament.name);
+                    const suggestedFilename = createFilename(standardizedName);
+                    const fullUrl = `http://localhost:8080/tournaments/${tournament.filename}`;
+                    
+                    row.innerHTML = `
+                        <td class="tournament-name">${tournament.name}</td>
+                        <td class="tournament-name" style="color: #27ae60; font-weight: bold;">${standardizedName}</td>
+                        <td><span class="type-badge type-${tournament.type}">${tournament.type}</span></td>
+                        <td>${tournament.date}</td>
+                        <td>${tournament.site}</td>
+                        <td>${tournament.teams}</td>
+                        <td>${tournament.players}</td>
+                        <td>${tournament.games}</td>
+                        <td><span class="filename">${tournament.filename}</span></td>
+                        <td><span class="url">${fullUrl}</span></td>
+                        <td><span class="filename">${suggestedFilename}</span></td>
+                    `;
+                    
+                    tbody.appendChild(row);
+                });
+                
+            } catch (error) {
+                console.error('Error loading tournament data:', error);
+                document.getElementById('tournamentBody').innerHTML = 
+                    '<tr><td colspan="11" style="text-align: center; color: #e74c3c;">Error loading tournament data</td></tr>';
+            }
+        }
+        
+        // Standardize tournament names
+        function standardizeTournamentName(originalName) {
+            // Handle different patterns in tournament names
+            let standardized = originalName;
+            
+            // Pattern: EU-chT 01st Final -> European Team Championships (1st)
+            if (standardized.match(/EU-chT\s+(\d+)(st|nd|rd|th)\s+Final/)) {
+                const number = standardized.match(/(\d+)/)[1];
+                const ordinal = getOrdinalSuffix(parseInt(number));
+                standardized = `European Team Championships (${ordinal})`;
+            }
+            // Pattern: EU-chT (Men) 09th -> European Team Championships (9th)
+            else if (standardized.match(/EU-chT\s+\(Men\)\s+(\d+)(st|nd|rd|th)/)) {
+                const number = standardized.match(/(\d+)/)[1];
+                const ordinal = getOrdinalSuffix(parseInt(number));
+                standardized = `European Team Championships (${ordinal})`;
+            }
+            // Pattern: EU-chT 22nd -> European Team Championships (22nd)
+            else if (standardized.match(/EU-chT\s+(\d+)(st|nd|rd|th)/)) {
+                const number = standardized.match(/(\d+)/)[1];
+                const ordinal = getOrdinalSuffix(parseInt(number));
+                standardized = `European Team Championships (${ordinal})`;
+            }
+            // Handle Unknown Tournament
+            else if (standardized === "Unknown Tournament") {
+                standardized = "European Championships (Unknown Event)";
+            }
+            
+            return standardized;
+        }
+        
+        // Get ordinal suffix for numbers
+        function getOrdinalSuffix(number) {
+            const lastDigit = number % 10;
+            const lastTwoDigits = number % 100;
+            
+            if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+                return number + 'th';
+            }
+            
+            switch (lastDigit) {
+                case 1: return number + 'st';
+                case 2: return number + 'nd';
+                case 3: return number + 'rd';
+                default: return number + 'th';
+            }
+        }
+        
+        // Create filename from tournament name
+        function createFilename(name) {
+            return name.toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '') // Remove special chars
+                .replace(/\s+/g, '-') // Replace spaces with hyphens
+                .replace(/-+/g, '-') // Replace multiple hyphens with single
+                .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
+                + '.html';
+        }
+        
+        // Copy table data for Google Sheets
+        function copyTableData() {
+            const table = document.getElementById('tournamentTable');
+            const rows = table.querySelectorAll('tr');
+            
+            let csvContent = '';
+            
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('th, td');
+                const rowData = Array.from(cells).map(cell => {
+                    // Get text content and clean it up
+                    let text = cell.textContent.trim();
+                    // Wrap in quotes if contains comma or newline
+                    if (text.includes(',') || text.includes('\n') || text.includes('"')) {
+                        text = '"' + text.replace(/"/g, '""') + '"';
+                    }
+                    return text;
+                });
+                csvContent += rowData.join('\t') + '\n';
+            });
+            
+            navigator.clipboard.writeText(csvContent).then(() => {
+                showCopyFeedback('✅ Table data copied! Ready to paste into Google Sheets');
+            });
+        }
+        
+        // Copy URLs only
+        function copyUrls() {
+            const urlCells = document.querySelectorAll('.url');
+            const urls = Array.from(urlCells).map(cell => cell.textContent).join('\n');
+            
+            navigator.clipboard.writeText(urls).then(() => {
+                showCopyFeedback('✅ URLs copied to clipboard!');
+            });
+        }
+        
+        // Show copy feedback
+        function showCopyFeedback(message) {
+            const feedback = document.getElementById('copyFeedback');
+            feedback.textContent = message;
+            feedback.style.display = 'block';
+            
+            setTimeout(() => {
+                feedback.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', loadTournaments);
+    </script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</body>
+</html>

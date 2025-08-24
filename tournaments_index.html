@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Tournaments</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .tournaments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tournament-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .tournament-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tournament-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .tournament-date {
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tournament-location {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .tournament-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .tournament-stats span {
+            color: #555;
+        }
+        
+        .tournament-stats i {
+            color: #4a90e2;
+            margin-right: 5px;
+        }
+        
+        .view-tournament-btn {
+            display: block;
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .view-tournament-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .stats-summary {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Chess Tournament Collection</h1>
+            <p>Browse all tournaments from the PGN file</p>
+        </div>
+        
+        <div class="stats-summary">
+            <h2>Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">185</div>
+                    <div class="stat-label">Tournaments</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">36402</div>
+                    <div class="stat-label">Total Games</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">5623</div>
+                    <div class="stat-label">Unique Players</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 style="color: #2c3e50; text-align: center;">All Tournaments</h2>
+        
+        <div class="tournaments-grid">
+            
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 28th</h3>
+                        <p class="tournament-date">2024.10.20</p>
+                        <p class="tournament-location">Vrnjacka Banja</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 18 teams</span>
+                            <span><i class="fas fa-chess"></i> 252 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_1.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>Unknown Tournament</h3>
+                        <p class="tournament-date"></p>
+                        <p class="tournament-location"></p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-user"></i> 0 players</span>
+                            <span><i class="fas fa-chess"></i> 0 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_2.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 39th</h3>
+                        <p class="tournament-date">2024.10.20</p>
+                        <p class="tournament-location">Vrnjacka Banja</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 84 teams</span>
+                            <span><i class="fas fa-chess"></i> 1756 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_3.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 27th</h3>
+                        <p class="tournament-date">2023.10.01</p>
+                        <p class="tournament-location">Durres</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 21 teams</span>
+                            <span><i class="fas fa-chess"></i> 196 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_4.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 38th</h3>
+                        <p class="tournament-date">2023.10.01</p>
+                        <p class="tournament-location">Durres</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 56 teams</span>
+                            <span><i class="fas fa-chess"></i> 550 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_5.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 26th</h3>
+                        <p class="tournament-date">2022.10.03</p>
+                        <p class="tournament-location">Mayrhofen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 18 teams</span>
+                            <span><i class="fas fa-chess"></i> 212 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_6.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 37th</h3>
+                        <p class="tournament-date">2022.10.03</p>
+                        <p class="tournament-location">Mayrhofen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 52 teams</span>
+                            <span><i class="fas fa-chess"></i> 481 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_7.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 25th</h3>
+                        <p class="tournament-date">2021.09.18</p>
+                        <p class="tournament-location">Struga</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 112 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_8.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 36th</h3>
+                        <p class="tournament-date">2021.09.18</p>
+                        <p class="tournament-location">Struga</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 38 teams</span>
+                            <span><i class="fas fa-chess"></i> 797 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_9.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Final</h3>
+                        <p class="tournament-date">2021.03.30</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_10.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-A</h3>
+                        <p class="tournament-date">2021.03.27</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_11.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-B</h3>
+                        <p class="tournament-date">2021.03.27</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_12.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-C</h3>
+                        <p class="tournament-date">2021.03.27</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_13.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-D</h3>
+                        <p class="tournament-date">2021.03.27</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_14.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-E</h3>
+                        <p class="tournament-date">2021.03.27</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_15.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-F</h3>
+                        <p class="tournament-date">2021.03.27</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_16.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-G</h3>
+                        <p class="tournament-date">2021.03.27</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_17.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-H</h3>
+                        <p class="tournament-date">2021.03.27</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_18.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-I</h3>
+                        <p class="tournament-date">2021.03.27</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_19.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Play-A</h3>
+                        <p class="tournament-date">2021.03.29</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 60 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_20.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Play-B</h3>
+                        <p class="tournament-date">2021.03.29</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 60 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_21.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Play-C</h3>
+                        <p class="tournament-date">2021.03.29</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 60 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_22.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Final (Women)</h3>
+                        <p class="tournament-date">2020.12.21</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 11 teams</span>
+                            <span><i class="fas fa-chess"></i> 180 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_23.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-A (Women)</h3>
+                        <p class="tournament-date">2020.12.19</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 112 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_24.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-B (Women)</h3>
+                        <p class="tournament-date">2020.12.19</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 9 teams</span>
+                            <span><i class="fas fa-chess"></i> 112 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_25.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-C (Women)</h3>
+                        <p class="tournament-date">2020.12.19</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 112 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_26.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-D (Women)</h3>
+                        <p class="tournament-date">2020.12.19</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 9 teams</span>
+                            <span><i class="fas fa-chess"></i> 144 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_27.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Online Gr-E (Women)</h3>
+                        <p class="tournament-date">2020.12.19</p>
+                        <p class="tournament-location">Tornelo INT</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 9 teams</span>
+                            <span><i class="fas fa-chess"></i> 144 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_28.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 24th</h3>
+                        <p class="tournament-date">2019.11.10</p>
+                        <p class="tournament-location">Ulcinj</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 14 teams</span>
+                            <span><i class="fas fa-chess"></i> 196 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_29.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 35th</h3>
+                        <p class="tournament-date">2019.11.10</p>
+                        <p class="tournament-location">Ulcinj</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 66 teams</span>
+                            <span><i class="fas fa-chess"></i> 927 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_30.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 23rd</h3>
+                        <p class="tournament-date">2018.10.12</p>
+                        <p class="tournament-location">Porto Carras</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 12 teams</span>
+                            <span><i class="fas fa-chess"></i> 168 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_31.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 34th</h3>
+                        <p class="tournament-date">2018.10.12</p>
+                        <p class="tournament-location">Porto Carras</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 61 teams</span>
+                            <span><i class="fas fa-chess"></i> 1260 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_32.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 22nd</h3>
+                        <p class="tournament-date">2017.10.08</p>
+                        <p class="tournament-location">Antalya</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 12 teams</span>
+                            <span><i class="fas fa-chess"></i> 168 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_33.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 33rd</h3>
+                        <p class="tournament-date">2017.10.08</p>
+                        <p class="tournament-location">Antalya</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 36 teams</span>
+                            <span><i class="fas fa-chess"></i> 756 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_34.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 21st</h3>
+                        <p class="tournament-date">2016.11.06</p>
+                        <p class="tournament-location">Novi Sad</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 14 teams</span>
+                            <span><i class="fas fa-chess"></i> 196 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_35.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 32nd</h3>
+                        <p class="tournament-date">2016.11.06</p>
+                        <p class="tournament-location">Novi Sad</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 62 teams</span>
+                            <span><i class="fas fa-chess"></i> 1301 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_36.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 20th</h3>
+                        <p class="tournament-date">2015.10.18</p>
+                        <p class="tournament-location">Skopje</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 12 teams</span>
+                            <span><i class="fas fa-chess"></i> 168 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_37.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 31st</h3>
+                        <p class="tournament-date">2015.10.18</p>
+                        <p class="tournament-location">Skopje</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 50 teams</span>
+                            <span><i class="fas fa-chess"></i> 1050 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_38.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 19th</h3>
+                        <p class="tournament-date">2014.09.14</p>
+                        <p class="tournament-location">Bilbao</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 56 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_39.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 30th</h3>
+                        <p class="tournament-date">2014.09.14</p>
+                        <p class="tournament-location">Bilbao</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 52 teams</span>
+                            <span><i class="fas fa-chess"></i> 1092 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_40.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 18th</h3>
+                        <p class="tournament-date">2013.10.20</p>
+                        <p class="tournament-location">Rhodes</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 11 teams</span>
+                            <span><i class="fas fa-chess"></i> 140 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_41.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 29th</h3>
+                        <p class="tournament-date">2013.10.20</p>
+                        <p class="tournament-location">Rhodes</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 53 teams</span>
+                            <span><i class="fas fa-chess"></i> 1092 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_42.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 17th</h3>
+                        <p class="tournament-date">2012.10.11</p>
+                        <p class="tournament-location">Eilat</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 112 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_43.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 28th</h3>
+                        <p class="tournament-date">2012.10.11</p>
+                        <p class="tournament-location">Eilat</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 34 teams</span>
+                            <span><i class="fas fa-chess"></i> 714 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_44.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 16th</h3>
+                        <p class="tournament-date">2011.09.25</p>
+                        <p class="tournament-location">Rogaska Slatina</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 11 teams</span>
+                            <span><i class="fas fa-chess"></i> 140 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_45.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 27th</h3>
+                        <p class="tournament-date">2011.09.25</p>
+                        <p class="tournament-location">Rogaska Slatina</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 62 teams</span>
+                            <span><i class="fas fa-chess"></i> 1301 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_46.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 15th</h3>
+                        <p class="tournament-date">2010.10.17</p>
+                        <p class="tournament-location">Plovdiv</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 14 teams</span>
+                            <span><i class="fas fa-chess"></i> 196 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_47.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 26th</h3>
+                        <p class="tournament-date">2010.10.17</p>
+                        <p class="tournament-location">Plovdiv</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 49 teams</span>
+                            <span><i class="fas fa-chess"></i> 1008 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_48.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 14th</h3>
+                        <p class="tournament-date">2009.10.04</p>
+                        <p class="tournament-location">Ohrid</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 11 teams</span>
+                            <span><i class="fas fa-chess"></i> 140 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_49.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 25th</h3>
+                        <p class="tournament-date">2009.10.04</p>
+                        <p class="tournament-location">Ohrid</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 54 teams</span>
+                            <span><i class="fas fa-chess"></i> 1134 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_50.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 13th</h3>
+                        <p class="tournament-date">2008.10.17</p>
+                        <p class="tournament-location">Kallithea</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 18 teams</span>
+                            <span><i class="fas fa-chess"></i> 252 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_51.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 24th</h3>
+                        <p class="tournament-date">2008.10.17</p>
+                        <p class="tournament-location">Kallithea</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 64 teams</span>
+                            <span><i class="fas fa-chess"></i> 1344 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_52.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 12th</h3>
+                        <p class="tournament-date">2007.10.03</p>
+                        <p class="tournament-location">Kemer</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 18 teams</span>
+                            <span><i class="fas fa-chess"></i> 252 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_53.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 23rd</h3>
+                        <p class="tournament-date">2007.10.03</p>
+                        <p class="tournament-location">Kemer</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 56 teams</span>
+                            <span><i class="fas fa-chess"></i> 1176 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_54.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 11th</h3>
+                        <p class="tournament-date">2006.10.08</p>
+                        <p class="tournament-location">Fuegen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 11 teams</span>
+                            <span><i class="fas fa-chess"></i> 140 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_55.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 22nd</h3>
+                        <p class="tournament-date">2006.10.08</p>
+                        <p class="tournament-location">Fuegen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 56 teams</span>
+                            <span><i class="fas fa-chess"></i> 1168 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_56.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 10th</h3>
+                        <p class="tournament-date">2005.09.18</p>
+                        <p class="tournament-location">Saint Vincent</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 11 teams</span>
+                            <span><i class="fas fa-chess"></i> 140 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_57.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 21st</h3>
+                        <p class="tournament-date">2005.09.18</p>
+                        <p class="tournament-location">Saint Vincent</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 49 teams</span>
+                            <span><i class="fas fa-chess"></i> 1008 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_58.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 09th</h3>
+                        <p class="tournament-date">2004.10.03</p>
+                        <p class="tournament-location">Izmir</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 140 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_59.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 20th</h3>
+                        <p class="tournament-date">2004.10.03</p>
+                        <p class="tournament-location">Izmir</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 36 teams</span>
+                            <span><i class="fas fa-chess"></i> 756 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_60.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 08th</h3>
+                        <p class="tournament-date">2003.09.28</p>
+                        <p class="tournament-location">Rethymno</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 13 teams</span>
+                            <span><i class="fas fa-chess"></i> 168 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_61.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 19th</h3>
+                        <p class="tournament-date">2003.09.28</p>
+                        <p class="tournament-location">Rethymno</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 45 teams</span>
+                            <span><i class="fas fa-chess"></i> 924 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_62.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 07th</h3>
+                        <p class="tournament-date">2002.09.29</p>
+                        <p class="tournament-location">Antalya</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 11 teams</span>
+                            <span><i class="fas fa-chess"></i> 140 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_63.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 18th</h3>
+                        <p class="tournament-date">2002.09.22</p>
+                        <p class="tournament-location">Kallithea</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 43 teams</span>
+                            <span><i class="fas fa-chess"></i> 882 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_64.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 06th</h3>
+                        <p class="tournament-date">2001.09.16</p>
+                        <p class="tournament-location">Belgrade</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 140 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_65.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 17th</h3>
+                        <p class="tournament-date">2001.09.23</p>
+                        <p class="tournament-location">Panormo</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 39 teams</span>
+                            <span><i class="fas fa-chess"></i> 798 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_66.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 05th</h3>
+                        <p class="tournament-date">2000.09.24</p>
+                        <p class="tournament-location">Halle</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 140 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_67.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 16th</h3>
+                        <p class="tournament-date">2000.09.24</p>
+                        <p class="tournament-location">Neum</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 34 teams</span>
+                            <span><i class="fas fa-chess"></i> 714 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_68.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 04th</h3>
+                        <p class="tournament-date">1999.06.28</p>
+                        <p class="tournament-location">Nova Gorica</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 12 teams</span>
+                            <span><i class="fas fa-chess"></i> 168 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_69.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 14th final</h3>
+                        <p class="tournament-date">1999.01.11</p>
+                        <p class="tournament-location">Belgrade</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_70.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 15th Gr1</h3>
+                        <p class="tournament-date">1999.09.17</p>
+                        <p class="tournament-location">Paide</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_71.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 15th Gr2</h3>
+                        <p class="tournament-date">1999.09.24</p>
+                        <p class="tournament-location">Reykjavik</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_72.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 15th Gr3</h3>
+                        <p class="tournament-date">1999.10.01</p>
+                        <p class="tournament-location">Albufeira Algarve</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 60 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_73.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 15th Gr4</h3>
+                        <p class="tournament-date">1999.10.08</p>
+                        <p class="tournament-location">Eupen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_74.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 15th Gr5</h3>
+                        <p class="tournament-date">1999.10.08</p>
+                        <p class="tournament-location">Pula</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 54 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_75.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 15th Gr6</h3>
+                        <p class="tournament-date">1999.10.11</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_76.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 15th final</h3>
+                        <p class="tournament-date">1999.10.29</p>
+                        <p class="tournament-location">Bugojno</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_77.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 03rd Gr1</h3>
+                        <p class="tournament-date">1998.06.17</p>
+                        <p class="tournament-location">Wuppertal</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 24 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_78.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 03rd Gr2</h3>
+                        <p class="tournament-date">1998.06.17</p>
+                        <p class="tournament-location">Wuppertal</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 24 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_79.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 03rd Gr3</h3>
+                        <p class="tournament-date">1998.06.17</p>
+                        <p class="tournament-location">Wuppertal</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 24 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_80.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 03rd final</h3>
+                        <p class="tournament-date">1998.06.21</p>
+                        <p class="tournament-location">Wuppertal</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_81.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 14th Group1</h3>
+                        <p class="tournament-date">1998.09.18</p>
+                        <p class="tournament-location">Breda</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_82.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 14th Group2</h3>
+                        <p class="tournament-date">1998.09.11</p>
+                        <p class="tournament-location">Bonnevoie</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_83.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 14th Group3</h3>
+                        <p class="tournament-date">1998.09.18</p>
+                        <p class="tournament-location">Lubniewice</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_84.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 14th Group4</h3>
+                        <p class="tournament-date">1998.10.23</p>
+                        <p class="tournament-location">Narva</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 5 teams</span>
+                            <span><i class="fas fa-chess"></i> 25 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_85.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 14th Group5</h3>
+                        <p class="tournament-date">1998.09.18</p>
+                        <p class="tournament-location">Senec</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 54 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_86.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 14th Group6</h3>
+                        <p class="tournament-date">1998.10.16</p>
+                        <p class="tournament-location">Sremic Krsko</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 54 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_87.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 14th Group7</h3>
+                        <p class="tournament-date">1998.11.07</p>
+                        <p class="tournament-location">Belgrade</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 18 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_88.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 02nd</h3>
+                        <p class="tournament-date">1997.??.??</p>
+                        <p class="tournament-location">Rijeka</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_89.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 13th Group1</h3>
+                        <p class="tournament-date">1997.09.26</p>
+                        <p class="tournament-location">Yerevan</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 54 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_90.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 13th Group2</h3>
+                        <p class="tournament-date">1997.09.22</p>
+                        <p class="tournament-location">Eupen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_91.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 13th Group3</h3>
+                        <p class="tournament-date">1997.09.22</p>
+                        <p class="tournament-location">Slough</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_92.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 13th Group4</h3>
+                        <p class="tournament-date">1997.10.17</p>
+                        <p class="tournament-location">Parnu</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 34 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_93.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 13th Group5</h3>
+                        <p class="tournament-date">1997.10.03</p>
+                        <p class="tournament-location">Mulhouse</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 54 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_94.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 13th Group6</h3>
+                        <p class="tournament-date">1997.10.10</p>
+                        <p class="tournament-location">Heraklion</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_95.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 13th Group7</h3>
+                        <p class="tournament-date">1997.09.15</p>
+                        <p class="tournament-location">Krynica</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_96.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 13th final</h3>
+                        <p class="tournament-date">1997.12.28</p>
+                        <p class="tournament-location">Kazan</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_97.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 13th final play-off</h3>
+                        <p class="tournament-date">1997.12.30</p>
+                        <p class="tournament-location">Kazan</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 6 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_98.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup (Women) 01st</h3>
+                        <p class="tournament-date">1996.05.31</p>
+                        <p class="tournament-location">Smederevska Palanka</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_99.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 12th Group1</h3>
+                        <p class="tournament-date">1996.10.11</p>
+                        <p class="tournament-location">Kranevo</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_100.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 12th Group2</h3>
+                        <p class="tournament-date">1996.10.11</p>
+                        <p class="tournament-location">Olomouc</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 5 teams</span>
+                            <span><i class="fas fa-chess"></i> 30 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_101.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 12th Group3</h3>
+                        <p class="tournament-date">1996.11.23</p>
+                        <p class="tournament-location">London</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_102.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 12th Group4</h3>
+                        <p class="tournament-date">1996.09.06</p>
+                        <p class="tournament-location">Berlin</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_103.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 12th Group5</h3>
+                        <p class="tournament-date">1996.??.??</p>
+                        <p class="tournament-location">Thessaloniki</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 42 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_104.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 12th Group6</h3>
+                        <p class="tournament-date">1996.10.06</p>
+                        <p class="tournament-location">St Petersburg</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 5 teams</span>
+                            <span><i class="fas fa-chess"></i> 18 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_105.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 12th Group7</h3>
+                        <p class="tournament-date">1996.09.06</p>
+                        <p class="tournament-location">Bratislava</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_106.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 12th final</h3>
+                        <p class="tournament-date">1996.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 16 teams</span>
+                            <span><i class="fas fa-chess"></i> 186 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_107.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 12th final play-off</h3>
+                        <p class="tournament-date">1996.11.24</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 6 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_108.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 11th Group1</h3>
+                        <p class="tournament-date">1995.??.??</p>
+                        <p class="tournament-location">Clichy</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 69 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_109.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 11th Group2</h3>
+                        <p class="tournament-date">1995.??.??</p>
+                        <p class="tournament-location">Maribor</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 54 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_110.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 11th Group3</h3>
+                        <p class="tournament-date">1995.09.15</p>
+                        <p class="tournament-location">Oerebro</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 42 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_111.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 11th Group4</h3>
+                        <p class="tournament-date">1995.07.15</p>
+                        <p class="tournament-location">Tyniste</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 42 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_112.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 11th Group5</h3>
+                        <p class="tournament-date">1995.??.??</p>
+                        <p class="tournament-location">Vilnius</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 54 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_113.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 11th Group6</h3>
+                        <p class="tournament-date">1995.09.22</p>
+                        <p class="tournament-location">Linz</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 27 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_114.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 11th Group7</h3>
+                        <p class="tournament-date">1995.??.??</p>
+                        <p class="tournament-location">Rome</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 2 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_115.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 11th final</h3>
+                        <p class="tournament-date">1995.11.30</p>
+                        <p class="tournament-location">Ljubljana</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_116.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 10th Gr2</h3>
+                        <p class="tournament-date">1994.??.??</p>
+                        <p class="tournament-location">Pula</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 5 teams</span>
+                            <span><i class="fas fa-chess"></i> 30 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_117.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 10th Group1</h3>
+                        <p class="tournament-date">1994.??.??</p>
+                        <p class="tournament-location">Eupen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 53 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_118.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 10th Group3</h3>
+                        <p class="tournament-date">1994.09.02</p>
+                        <p class="tournament-location">Strasbourg</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 58 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_119.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 10th Group4</h3>
+                        <p class="tournament-date">1994.??.??</p>
+                        <p class="tournament-location">Balatonbereny</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 54 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_120.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 10th Group5</h3>
+                        <p class="tournament-date">1994.??.??</p>
+                        <p class="tournament-location">Asiag</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 54 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_121.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 10th Group6</h3>
+                        <p class="tournament-date">1994.??.??</p>
+                        <p class="tournament-location">Lubniewice</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_122.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 10th Group7</h3>
+                        <p class="tournament-date">1994.??.??</p>
+                        <p class="tournament-location">Baile Herculane</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 5 teams</span>
+                            <span><i class="fas fa-chess"></i> 30 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_123.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 10th final</h3>
+                        <p class="tournament-date">1994.11.18</p>
+                        <p class="tournament-location">Lyon</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_124.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 09th Group1</h3>
+                        <p class="tournament-date">1993.09.17</p>
+                        <p class="tournament-location">London</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 7 teams</span>
+                            <span><i class="fas fa-chess"></i> 36 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_125.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 09th Group2</h3>
+                        <p class="tournament-date">1993.09.24</p>
+                        <p class="tournament-location">Luxembourg</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 32 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_126.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 09th Group3</h3>
+                        <p class="tournament-date">1993.08.24</p>
+                        <p class="tournament-location">Vienna</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 3 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_127.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 09th Group4</h3>
+                        <p class="tournament-date">1993.09.18</p>
+                        <p class="tournament-location">Portoroz</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 41 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_128.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 09th Group5</h3>
+                        <p class="tournament-date">1993.09.07</p>
+                        <p class="tournament-location">Balatonbereny</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 42 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_129.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 09th Group6</h3>
+                        <p class="tournament-date">1993.09.17</p>
+                        <p class="tournament-location">Clichy</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_130.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 09th Group7</h3>
+                        <p class="tournament-date">1993.10.01</p>
+                        <p class="tournament-location">Barcelona</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 70 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_131.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 09th final</h3>
+                        <p class="tournament-date">1993.12.10</p>
+                        <p class="tournament-location">Hilversum</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_132.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 08th final</h3>
+                        <p class="tournament-date">1992.??.??</p>
+                        <p class="tournament-location">Munich</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_133.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 08th quarterfinal</h3>
+                        <p class="tournament-date">1992.??.??</p>
+                        <p class="tournament-location">Cheliabinsk</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_134.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 08th semifinal</h3>
+                        <p class="tournament-date">1992.05.27</p>
+                        <p class="tournament-location">Solingen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 24 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_135.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 07th final</h3>
+                        <p class="tournament-date">1991.03.11</p>
+                        <p class="tournament-location">Solingen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 18 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_136.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 08th round of 16</h3>
+                        <p class="tournament-date">1991.11.19</p>
+                        <p class="tournament-location">London</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_137.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 08th round of 32</h3>
+                        <p class="tournament-date">1991.??.??</p>
+                        <p class="tournament-location">Barcelona</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 24 teams</span>
+                            <span><i class="fas fa-chess"></i> 144 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_138.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup Cheliabinsk-Yerevan</h3>
+                        <p class="tournament-date">1991.??.??</p>
+                        <p class="tournament-location">Cheliabinsk</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-user"></i> 14 players</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_139.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 07th round of 32</h3>
+                        <p class="tournament-date">1989.??.??</p>
+                        <p class="tournament-location">Aarhus</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 26 teams</span>
+                            <span><i class="fas fa-chess"></i> 164 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_140.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 07th semifinal</h3>
+                        <p class="tournament-date">1990.??.??</p>
+                        <p class="tournament-location">Moscow</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 5 teams</span>
+                            <span><i class="fas fa-chess"></i> 24 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_141.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 07th quarterfinal</h3>
+                        <p class="tournament-date">1989.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_142.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 07th round of 16</h3>
+                        <p class="tournament-date">1989.08.??</p>
+                        <p class="tournament-location">Beersheba</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 60 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_143.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 06th final</h3>
+                        <p class="tournament-date">1988.07.11</p>
+                        <p class="tournament-location">Rotterdam</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_144.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 06th quarterfinal</h3>
+                        <p class="tournament-date">1988.??.??</p>
+                        <p class="tournament-location">Munich</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_145.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 06th round of 16</h3>
+                        <p class="tournament-date">1987.??.??</p>
+                        <p class="tournament-location">Bucharest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 12 teams</span>
+                            <span><i class="fas fa-chess"></i> 65 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_146.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 06th round of 16a</h3>
+                        <p class="tournament-date">1987.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_147.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 06th round of 16b</h3>
+                        <p class="tournament-date">1987.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_148.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 06th round of 32</h3>
+                        <p class="tournament-date">1987.06.14</p>
+                        <p class="tournament-location">Barcelona</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 22 teams</span>
+                            <span><i class="fas fa-chess"></i> 121 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_149.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 05th final</h3>
+                        <p class="tournament-date">1986.12.10</p>
+                        <p class="tournament-location">Moscow</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_150.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 05th quarterfinal</h3>
+                        <p class="tournament-date">1986.??.??</p>
+                        <p class="tournament-location">Belgrade</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_151.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 05th round of 16</h3>
+                        <p class="tournament-date">1986.01.04</p>
+                        <p class="tournament-location">Clichy</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 12 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_152.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 05th round of 16a</h3>
+                        <p class="tournament-date">1986.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_153.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 05th round of 16b</h3>
+                        <p class="tournament-date">1986.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_154.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 05th semifinal</h3>
+                        <p class="tournament-date">1986.??.??</p>
+                        <p class="tournament-location">Brussels</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 24 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_155.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 05th round of 32</h3>
+                        <p class="tournament-date">1985.??.??</p>
+                        <p class="tournament-location">Allschwil</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 22 teams</span>
+                            <span><i class="fas fa-chess"></i> 121 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_156.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 05th round of 32a</h3>
+                        <p class="tournament-date">1985.??.??</p>
+                        <p class="tournament-location">Moscow</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_157.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 05th round of 32b</h3>
+                        <p class="tournament-date">1985.??.??</p>
+                        <p class="tournament-location">Moscow</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_158.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 04th final</h3>
+                        <p class="tournament-date">1984.12.??</p>
+                        <p class="tournament-location">Moscow</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_159.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 04th quarterfinal</h3>
+                        <p class="tournament-date">1984.??.??</p>
+                        <p class="tournament-location">Barcelona</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_160.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 04th round of 16</h3>
+                        <p class="tournament-date">1984.??.??</p>
+                        <p class="tournament-location">Belgrade</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 12 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_161.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 04th round of 16a</h3>
+                        <p class="tournament-date">1984.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_162.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 04th semifinal</h3>
+                        <p class="tournament-date">1984.??.??</p>
+                        <p class="tournament-location">Barcelona</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_163.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 04th round of 16b</h3>
+                        <p class="tournament-date">1983.12.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_164.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 04th round of 32</h3>
+                        <p class="tournament-date">1983.10.12</p>
+                        <p class="tournament-location">Athens</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 20 teams</span>
+                            <span><i class="fas fa-chess"></i> 120 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_165.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 04th round of 32a</h3>
+                        <p class="tournament-date">1983.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_166.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 04th round of 32b</h3>
+                        <p class="tournament-date">1983.09.25</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_167.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 03rd final</h3>
+                        <p class="tournament-date">1982.03.18</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_168.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 03rd quarterfinal</h3>
+                        <p class="tournament-date">1981.05.28</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 6 teams</span>
+                            <span><i class="fas fa-chess"></i> 36 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_169.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 03rd round of 16</h3>
+                        <p class="tournament-date">1981.02.06</p>
+                        <p class="tournament-location">Belgrade</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 13 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_170.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 03rd semifinal</h3>
+                        <p class="tournament-date">1981.07.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 24 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_171.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 03rd round of 32</h3>
+                        <p class="tournament-date">1980.10.12</p>
+                        <p class="tournament-location">Belgrade</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 14 teams</span>
+                            <span><i class="fas fa-chess"></i> 82 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_172.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup qual Porz-Frankfurt</h3>
+                        <p class="tournament-date">1980.06.08</p>
+                        <p class="tournament-location">Porz</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 8 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_173.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 02nd final</h3>
+                        <p class="tournament-date">1979.11.23</p>
+                        <p class="tournament-location">Bad Lauterberg </p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_174.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 02nd final play-off</h3>
+                        <p class="tournament-date">1979.11.27</p>
+                        <p class="tournament-location">Bad Lauterberg</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 6 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_175.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 02nd quarterfinal</h3>
+                        <p class="tournament-date">1979.??.??</p>
+                        <p class="tournament-location">Belgrade</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_176.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 02nd semifinal</h3>
+                        <p class="tournament-date">1979.??.??</p>
+                        <p class="tournament-location">Rotterdam</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 24 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_177.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 02nd of 16</h3>
+                        <p class="tournament-date">1978.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_178.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 02nd round of 16</h3>
+                        <p class="tournament-date">1978.09.21</p>
+                        <p class="tournament-location">Bamberg</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 10 teams</span>
+                            <span><i class="fas fa-chess"></i> 60 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_179.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 02nd round of 32</h3>
+                        <p class="tournament-date">1978.05.??</p>
+                        <p class="tournament-location">Biel</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 9 teams</span>
+                            <span><i class="fas fa-chess"></i> 49 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_180.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 01st final</h3>
+                        <p class="tournament-date">1976.05.08</p>
+                        <p class="tournament-location">Solingen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 12 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_181.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 01st final play-off</h3>
+                        <p class="tournament-date">1976.05.10</p>
+                        <p class="tournament-location">Solingen</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 2 teams</span>
+                            <span><i class="fas fa-chess"></i> 6 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_182.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 01st quarterfinal</h3>
+                        <p class="tournament-date">1975.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 8 teams</span>
+                            <span><i class="fas fa-chess"></i> 48 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_183.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 01st round of 16</h3>
+                        <p class="tournament-date">1975.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 12 teams</span>
+                            <span><i class="fas fa-chess"></i> 72 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_184.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+                    <div class="tournament-card">
+                        <h3>EU-Cup 01st semifinal</h3>
+                        <p class="tournament-date">1975.??.??</p>
+                        <p class="tournament-location">Budapest</p>
+                        <div class="tournament-stats">
+                            <span><i class="fas fa-users"></i> 4 teams</span>
+                            <span><i class="fas fa-chess"></i> 24 games</span>
+                        </div>
+                        <a href="/tournaments/tournament_185.html" class="view-tournament-btn">View Tournament</a>
+                    </div>
+                
+        </div>
+    </div>
+</body>
+</html>

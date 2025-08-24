@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EU-Cup 19th</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav-button {
+            background: white;
+            color: #4a90e2;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .team-badge {
+            background: #4a90e2;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .podium {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .podium h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .podium-place {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 220px;
+            transition: transform 0.3s ease;
+        }
+        
+        .podium-place:hover {
+            transform: translateY(-5px);
+        }
+        
+        .podium-place.first {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            order: 2;
+            transform: scale(1.1);
+        }
+        
+        .podium-place.second {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            order: 1;
+        }
+        
+        .podium-place.third {
+            background: linear-gradient(135deg, #cd7f32, #daa520);
+            order: 3;
+        }
+        
+        .medal {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .standings {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #4a90e2, #81b6f5);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .medal-winner {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7) !important;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <a href="/tournaments/index.html" class="nav-button">
+                <i class="fas fa-home"></i> Back to Tournaments
+            </a>
+        </div>
+        
+        <div class="header">
+            <div class="team-badge">TEAM TOURNAMENT</div>
+            <h1>EU-Cup 19th</h1>
+            <div class="subtitle">Rethymno • 2003.09.28</div>
+        </div>
+        
+        
+        <div class="podium">
+            <h2>🏆 Winning Teams</h2>
+            <div class="podium-container">
+                
+                    <div class="podium-place first">
+                        <span class="medal">🥇</span>
+                        <h3>Skopje</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            61 MP
+                        </div>
+                        <div style="color: #666;">
+                            30.5 game points
+                        </div>
+                    </div>
+                
+                    <div class="podium-place second">
+                        <span class="medal">🥈</span>
+                        <h3>Paris NAO</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            60 MP
+                        </div>
+                        <div style="color: #666;">
+                            30 game points
+                        </div>
+                    </div>
+                
+                    <div class="podium-place third">
+                        <span class="medal">🥉</span>
+                        <h3>Kiseljak</h3>
+                        <div class="score" style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                            58 MP
+                        </div>
+                        <div style="color: #666;">
+                            29 game points
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="standings">
+            <h3>Team Standings</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Team</th>
+                        <th>Match Points</th>
+                        <th>Game Points</th>
+                        <th>Matches</th>
+                        <th>W-D-L</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr class="medal-winner">
+                            <td>🥇</td>
+                            <td>Skopje</td>
+                            <td><strong>61</strong></td>
+                            <td>30.5</td>
+                            <td>42</td>
+                            <td>24-13-5</td>
+                        </tr>
+                    
+                        <tr class="medal-winner">
+                            <td>🥈</td>
+                            <td>Paris NAO</td>
+                            <td><strong>60</strong></td>
+                            <td>30</td>
+                            <td>42</td>
+                            <td>20-20-2</td>
+                        </tr>
+                    
+                        <tr class="medal-winner">
+                            <td>🥉</td>
+                            <td>Kiseljak</td>
+                            <td><strong>58</strong></td>
+                            <td>29</td>
+                            <td>42</td>
+                            <td>18-22-2</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>4</td>
+                            <td>Warsaw Polonia</td>
+                            <td><strong>58</strong></td>
+                            <td>29</td>
+                            <td>42</td>
+                            <td>20-18-4</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>5</td>
+                            <td>Kazan Ladya</td>
+                            <td><strong>57</strong></td>
+                            <td>28.5</td>
+                            <td>42</td>
+                            <td>22-13-7</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>6</td>
+                            <td>St Petersburg</td>
+                            <td><strong>55</strong></td>
+                            <td>27.5</td>
+                            <td>42</td>
+                            <td>20-15-7</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>7</td>
+                            <td>Zalaegerszeg</td>
+                            <td><strong>54</strong></td>
+                            <td>27</td>
+                            <td>42</td>
+                            <td>17-20-5</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>8</td>
+                            <td>Norilsk Norilsky Nikel</td>
+                            <td><strong>53</strong></td>
+                            <td>26.5</td>
+                            <td>42</td>
+                            <td>14-25-3</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>9</td>
+                            <td>Vitebsk</td>
+                            <td><strong>53</strong></td>
+                            <td>26.5</td>
+                            <td>42</td>
+                            <td>23-7-12</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>10</td>
+                            <td>Beer Sheva</td>
+                            <td><strong>51</strong></td>
+                            <td>25.5</td>
+                            <td>42</td>
+                            <td>15-21-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>11</td>
+                            <td>Lipovec Garde</td>
+                            <td><strong>51</strong></td>
+                            <td>25.5</td>
+                            <td>42</td>
+                            <td>18-15-9</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>12</td>
+                            <td>Sarajevo Bosna</td>
+                            <td><strong>50</strong></td>
+                            <td>25</td>
+                            <td>42</td>
+                            <td>15-20-7</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>13</td>
+                            <td>Tomsk 400</td>
+                            <td><strong>50</strong></td>
+                            <td>25</td>
+                            <td>42</td>
+                            <td>15-20-7</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>14</td>
+                            <td>Werder Bremen</td>
+                            <td><strong>50</strong></td>
+                            <td>25</td>
+                            <td>42</td>
+                            <td>14-22-6</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>15</td>
+                            <td>Grodzisk</td>
+                            <td><strong>49</strong></td>
+                            <td>24.5</td>
+                            <td>42</td>
+                            <td>15-19-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>16</td>
+                            <td>Momot Alexander</td>
+                            <td><strong>48</strong></td>
+                            <td>24</td>
+                            <td>42</td>
+                            <td>14-20-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>17</td>
+                            <td>Trinec</td>
+                            <td><strong>48</strong></td>
+                            <td>24</td>
+                            <td>42</td>
+                            <td>20-8-14</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>18</td>
+                            <td>Minsk Vesnianka</td>
+                            <td><strong>47</strong></td>
+                            <td>23.5</td>
+                            <td>42</td>
+                            <td>16-15-11</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>19</td>
+                            <td>Clichy Echecs 92</td>
+                            <td><strong>46</strong></td>
+                            <td>23</td>
+                            <td>42</td>
+                            <td>17-12-13</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>20</td>
+                            <td>Tel Aviv Shlomo Har Zvi</td>
+                            <td><strong>46</strong></td>
+                            <td>23</td>
+                            <td>42</td>
+                            <td>18-10-14</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>21</td>
+                            <td>Eynatten</td>
+                            <td><strong>45</strong></td>
+                            <td>22.5</td>
+                            <td>42</td>
+                            <td>16-13-13</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>22</td>
+                            <td>Barbican</td>
+                            <td><strong>44</strong></td>
+                            <td>22</td>
+                            <td>42</td>
+                            <td>12-20-10</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>23</td>
+                            <td>Tbilisi</td>
+                            <td><strong>44</strong></td>
+                            <td>22</td>
+                            <td>42</td>
+                            <td>10-24-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>24</td>
+                            <td>Eupen Rochade</td>
+                            <td><strong>43</strong></td>
+                            <td>21.5</td>
+                            <td>42</td>
+                            <td>17-9-16</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>25</td>
+                            <td>Malmo Linhams</td>
+                            <td><strong>41</strong></td>
+                            <td>20.5</td>
+                            <td>42</td>
+                            <td>10-21-11</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>26</td>
+                            <td>Aarhus</td>
+                            <td><strong>40</strong></td>
+                            <td>20</td>
+                            <td>42</td>
+                            <td>12-16-14</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>27</td>
+                            <td>Joensuu SK</td>
+                            <td><strong>40</strong></td>
+                            <td>20</td>
+                            <td>42</td>
+                            <td>13-14-15</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>28</td>
+                            <td>Therande</td>
+                            <td><strong>39</strong></td>
+                            <td>19.5</td>
+                            <td>36</td>
+                            <td>11-17-8</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>29</td>
+                            <td>Berlin SF</td>
+                            <td><strong>37</strong></td>
+                            <td>18.5</td>
+                            <td>42</td>
+                            <td>9-19-14</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>30</td>
+                            <td>Asker</td>
+                            <td><strong>36</strong></td>
+                            <td>18</td>
+                            <td>42</td>
+                            <td>14-8-20</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>31</td>
+                            <td>Chania Kydon</td>
+                            <td><strong>36</strong></td>
+                            <td>18</td>
+                            <td>42</td>
+                            <td>10-16-16</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>32</td>
+                            <td>Gleisdorf</td>
+                            <td><strong>36</strong></td>
+                            <td>18</td>
+                            <td>42</td>
+                            <td>11-14-17</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>33</td>
+                            <td>Heraklion OAA</td>
+                            <td><strong>33</strong></td>
+                            <td>16.5</td>
+                            <td>42</td>
+                            <td>9-15-18</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>34</td>
+                            <td>Glasinac</td>
+                            <td><strong>32</strong></td>
+                            <td>16</td>
+                            <td>42</td>
+                            <td>11-10-21</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>35</td>
+                            <td>Liege Crelel</td>
+                            <td><strong>32</strong></td>
+                            <td>16</td>
+                            <td>42</td>
+                            <td>10-12-20</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>36</td>
+                            <td>Reykjavik Hellir</td>
+                            <td><strong>32</strong></td>
+                            <td>16</td>
+                            <td>42</td>
+                            <td>10-12-20</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>37</td>
+                            <td>Graz Austria</td>
+                            <td><strong>30</strong></td>
+                            <td>15</td>
+                            <td>42</td>
+                            <td>9-12-21</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>38</td>
+                            <td>Jyvaskyla JyS</td>
+                            <td><strong>30</strong></td>
+                            <td>15</td>
+                            <td>42</td>
+                            <td>11-8-23</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>39</td>
+                            <td>Cardiff</td>
+                            <td><strong>27</strong></td>
+                            <td>13.5</td>
+                            <td>36</td>
+                            <td>5-17-14</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>40</td>
+                            <td>Tschaturanga</td>
+                            <td><strong>25</strong></td>
+                            <td>12.5</td>
+                            <td>42</td>
+                            <td>6-13-23</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>41</td>
+                            <td>Ankara Kolejiler</td>
+                            <td><strong>24</strong></td>
+                            <td>12</td>
+                            <td>36</td>
+                            <td>7-10-19</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>42</td>
+                            <td>Echternach Sprenger</td>
+                            <td><strong>20</strong></td>
+                            <td>10</td>
+                            <td>36</td>
+                            <td>5-10-21</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>43</td>
+                            <td>Nidum Liberals</td>
+                            <td><strong>17</strong></td>
+                            <td>8.5</td>
+                            <td>36</td>
+                            <td>2-13-21</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>44</td>
+                            <td>Phibsboro</td>
+                            <td><strong>12</strong></td>
+                            <td>6</td>
+                            <td>36</td>
+                            <td>2-8-26</td>
+                        </tr>
+                    
+                        <tr class="">
+                            <td>45</td>
+                            <td>Belfast</td>
+                            <td><strong>8</strong></td>
+                            <td>4</td>
+                            <td>36</td>
+                            <td>1-6-29</td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
