@@ -703,14 +703,14 @@
                               tournamentName.toLowerCase().includes('team') ||
                               tournamentName.toLowerCase().includes('club');
                 
-                // Create unique key using event name, date, and site to distinguish tournaments
-                const tournamentKey = `${tournamentName}_${headers.Date || ''}_${headers.Site || ''}`;
+                // Create unique key using event name and site (not date, as rounds have different dates)
+                const tournamentKey = `${tournamentName}_${headers.Site || ''}`;
                 
                 // Initialize tournament
                 if (!tournamentMap[tournamentKey]) {
                     tournamentMap[tournamentKey] = {
                         name: tournamentName,
-                        date: headers.Date || headers.EventDate || '',
+                        date: headers.EventDate || headers.Date || '',
                         site: headers.Site || headers.EventCity || '',
                         type: isTeam ? 'team' : 'individual',
                         games: [],

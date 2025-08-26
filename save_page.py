@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 import json
+import re
 from datetime import datetime
 
 app = Flask(__name__, static_folder='.')
@@ -162,6 +163,74 @@ def list_tournaments():
             })
     except Exception as e:
         return jsonify({
+            'error': str(e)
+        }), 500
+
+@app.route('/api/update-tournament-names', methods=['POST'])
+def update_tournament_names():
+    """Update tournament names in HTML files and metadata"""
+    try:
+        data = request.json
+        changes = data.get('changes', {})
+        
+        if not changes:
+            return jsonify({'success': False, 'error': 'No changes provided'}), 400
+        
+        # Update metadata.json
+        metadata_file = os.path.join(PAGES_DIR, 'metadata.json')
+        if os.path.exists(metadata_file):
+            with open(metadata_file, 'r', encoding='utf-8') as f:
+                metadata = json.load(f)
+            
+            # Update tournament names in metadata
+            for tournament in metadata.get('tournaments', []):
+                if tournament['filename'] in changes:
+                    tournament['name'] = changes[tournament['filename']]['new']
+            
+            # Save updated metadata
+            with open(metadata_file, 'w', encoding='utf-8') as f:
+                json.dump(metadata, f, indent=2)
+        
+        # Update HTML files
+        for filename, change_info in changes.items():
+            filepath = os.path.join(PAGES_DIR, filename)
+            if os.path.exists(filepath):
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                # Replace tournament name in the HTML
+                # Look for the title in both <title> tag and <h1> tag
+                
+                # Update title tag
+                content = re.sub(
+                    r'<title>.*?</title>',
+                    f'<title>{change_info["new"]}</title>',
+                    content,
+                    flags=re.IGNORECASE
+                )
+                
+                # Update h1 tag (assuming the tournament name is in the first h1)
+                content = re.sub(
+                    r'(<h1[^>]*>)[^<]*(</h1>)',
+                    r'\1' + change_info["new"] + r'\2',
+                    content,
+                    count=1,
+                    flags=re.IGNORECASE
+                )
+                
+                # Save the updated file
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    f.write(content)
+        
+        return jsonify({
+            'success': True,
+            'message': f'Updated {len(changes)} tournament names',
+            'updated': list(changes.keys())
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
             'error': str(e)
         }), 500
 

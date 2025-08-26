@@ -183,6 +183,63 @@
             background: #3b7ac5;
             transform: translateY(-2px);
         }
+        
+        .editable-name {
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #2c3e50;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .editable-name:hover {
+            background: #f0f0f0;
+            border-color: #ddd;
+        }
+        
+        .editable-name:focus {
+            background: white;
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+        
+        .editable-name.modified {
+            background: #fff9c4;
+            border-color: #f9a825;
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .save-btn.show {
+            display: inline-block;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .save-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
     </style>
 </head>
 <body>
@@ -202,6 +259,9 @@
                 </button>
                 <button class="copy-btn" onclick="copyUrls()">
                     <i class="fas fa-link"></i> Copy URLs Only
+                </button>
+                <button class="save-btn" id="saveChangesBtn" onclick="saveNameChanges()">
+                    <i class="fas fa-save"></i> Save Name Changes
                 </button>
             </div>
             <div class="copy-feedback" id="copyFeedback"></div>
@@ -241,17 +301,23 @@
     </div>
     
     <script>
+        let tournamentData = [];
+        let modifiedNames = {};
+        
         // Load tournament data
         async function loadTournaments() {
             try {
                 const response = await fetch('/tournaments/metadata.json');
                 const data = await response.json();
+                tournamentData = data.tournaments;
                 
                 const tbody = document.getElementById('tournamentBody');
                 tbody.innerHTML = '';
                 
-                data.tournaments.forEach((tournament, index) => {
+                tournamentData.forEach((tournament, index) => {
                     const row = document.createElement('tr');
+                    row.dataset.index = index;
+                    row.dataset.filename = tournament.filename;
                     
                     // Get standardized name and create filename from it
                     const standardizedName = standardizeTournamentName(tournament.name);
@@ -259,7 +325,7 @@
                     const fullUrl = `https://history.europechess.org/tournaments/${tournament.filename}`;
                     
                     row.innerHTML = `
-                        <td class="tournament-name">${tournament.name}</td>
+                        <td><input type="text" class="editable-name" value="${tournament.name}" data-original="${tournament.name}" data-index="${index}" onchange="onNameChange(this)"></td>
                         <td class="tournament-name" style="color: #27ae60; font-weight: bold;">${standardizedName}</td>
                         <td><span class="type-badge type-${tournament.type}">${tournament.type}</span></td>
                         <td>${tournament.date}</td>
@@ -279,6 +345,85 @@
                 console.error('Error loading tournament data:', error);
                 document.getElementById('tournamentBody').innerHTML = 
                     '<tr><td colspan="11" style="text-align: center; color: #e74c3c;">Error loading tournament data</td></tr>';
+            }
+        }
+        
+        // Handle name change
+        function onNameChange(input) {
+            const index = input.dataset.index;
+            const originalName = input.dataset.original;
+            const newName = input.value.trim();
+            
+            if (newName !== originalName && newName !== '') {
+                input.classList.add('modified');
+                modifiedNames[tournamentData[index].filename] = {
+                    original: originalName,
+                    new: newName,
+                    filename: tournamentData[index].filename
+                };
+                
+                // Update the standardized name column
+                const row = input.closest('tr');
+                const standardizedName = standardizeTournamentName(newName);
+                row.cells[1].innerHTML = `<span style="color: #27ae60; font-weight: bold;">${standardizedName}</span>`;
+                
+                // Show save button
+                document.getElementById('saveChangesBtn').classList.add('show');
+            } else if (newName === originalName) {
+                input.classList.remove('modified');
+                delete modifiedNames[tournamentData[index].filename];
+                
+                // Hide save button if no changes
+                if (Object.keys(modifiedNames).length === 0) {
+                    document.getElementById('saveChangesBtn').classList.remove('show');
+                }
+            }
+        }
+        
+        // Save name changes
+        async function saveNameChanges() {
+            const btn = document.getElementById('saveChangesBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            
+            try {
+                const response = await fetch('/api/update-tournament-names', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        changes: modifiedNames
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showCopyFeedback('✅ Tournament names updated successfully!');
+                    
+                    // Clear modified state
+                    document.querySelectorAll('.editable-name.modified').forEach(input => {
+                        input.classList.remove('modified');
+                        input.dataset.original = input.value;
+                    });
+                    
+                    modifiedNames = {};
+                    btn.classList.remove('show');
+                    
+                    // Reload the page to show updated data
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    showCopyFeedback('❌ Error saving changes: ' + (result.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error saving changes:', error);
+                showCopyFeedback('❌ Error saving changes: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-save"></i> Save Name Changes';
             }
         }
         
