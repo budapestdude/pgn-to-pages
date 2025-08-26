@@ -526,9 +526,10 @@
             
             // File input change
             fileInput.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file && file.name.endsWith('.pgn')) {
-                    processPGNFile(file);
+                const files = Array.from(e.target.files);
+                const pgnFiles = files.filter(f => f.name.endsWith('.pgn'));
+                if (pgnFiles.length > 0) {
+                    processMultiplePGNFiles(pgnFiles);
                 }
             });
             
@@ -570,6 +571,10 @@
             
             for (const file of files) {
                 const content = await readFile(file);
+                // Add a separator comment between files to help identify them
+                if (fileCount > 0) {
+                    allContent += `\n\n[Event "--- File: ${file.name} ---"]\n\n`;
+                }
                 allContent += content + '\n\n';
                 fileCount++;
                 updateProgress((fileCount / files.length) * 30, `Read ${fileCount}/${files.length} files...`);
@@ -577,14 +582,14 @@
             
             pgnContent = allContent;
             
-            // Parse tournaments
+            // Parse tournaments using existing parsePGN function
             updateProgress(40, 'Parsing tournaments...');
-            tournaments = parseTournaments(pgnContent);
-            addLogEntry(`Found ${tournaments.length} tournaments across ${files.length} files`);
+            parsePGN();
+            addLogEntry(`Found ${tournaments.length} tournament(s) across ${files.length} file(s)`);
             
-            // Generate pages
+            // Generate pages using existing generatePages function
             updateProgress(60, 'Generating tournament pages...');
-            generatedPages = generateAllPages(tournaments);
+            generatePages();
             addLogEntry(`Generated ${Object.keys(generatedPages).length} pages`);
             
             // Auto-save to server
@@ -593,7 +598,7 @@
             
             updateProgress(100, 'Complete!');
             setTimeout(() => {
-                showResultsSection();
+                showResults();
             }, 500);
         }
         
@@ -674,14 +679,22 @@
                 // Get tournament name
                 const tournamentName = headers.Event || 'Unknown Tournament';
                 
+                // Skip file separator markers
+                if (tournamentName.startsWith('--- File:')) {
+                    return;
+                }
+                
                 // Determine if it's a team tournament
                 const isTeam = headers.WhiteTeam || headers.BlackTeam || 
                               tournamentName.toLowerCase().includes('team') ||
                               tournamentName.toLowerCase().includes('club');
                 
+                // Create unique key using event name, date, and site to distinguish tournaments
+                const tournamentKey = `${tournamentName}_${headers.Date || ''}_${headers.Site || ''}`;
+                
                 // Initialize tournament
-                if (!tournamentMap[tournamentName]) {
-                    tournamentMap[tournamentName] = {
+                if (!tournamentMap[tournamentKey]) {
+                    tournamentMap[tournamentKey] = {
                         name: tournamentName,
                         date: headers.Date || headers.EventDate || '',
                         site: headers.Site || headers.EventCity || '',
@@ -695,7 +708,7 @@
                     };
                 }
                 
-                const tournament = tournamentMap[tournamentName];
+                const tournament = tournamentMap[tournamentKey];
                 
                 // Add game data
                 if (headers.White && headers.Black) {

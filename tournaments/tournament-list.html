@@ -256,7 +256,7 @@
                     // Get standardized name and create filename from it
                     const standardizedName = standardizeTournamentName(tournament.name);
                     const suggestedFilename = createFilename(standardizedName);
-                    const fullUrl = `http://localhost:8080/tournaments/${tournament.filename}`;
+                    const fullUrl = `https://history.europechess.org/tournaments/${tournament.filename}`;
                     
                     row.innerHTML = `
                         <td class="tournament-name">${tournament.name}</td>
