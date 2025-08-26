@@ -703,8 +703,8 @@
                               tournamentName.toLowerCase().includes('team') ||
                               tournamentName.toLowerCase().includes('club');
                 
-                // Create unique key using event name and site (not date, as rounds have different dates)
-                const tournamentKey = `${tournamentName}_${headers.Site || ''}`;
+                // Create unique key using only event name (not date or site, as rounds may have variations)
+                const tournamentKey = tournamentName;
                 
                 // Initialize tournament
                 if (!tournamentMap[tournamentKey]) {
