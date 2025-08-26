@@ -804,7 +804,7 @@
                             }
                             <span><i class="fas fa-chess"></i> ${gameCount} games</span>
                         </div>
-                        <a href="/tournaments/${tournament.filename}" class="view-tournament-btn">View Tournament</a>
+                        <a href="https://history.europechess.org/tournaments/${tournament.filename}" class="view-tournament-btn">View Tournament</a>
                     </div>
                 `;
             }).join('');
@@ -1216,7 +1216,7 @@
 <body>
     <div class="container">
         <div class="navigation">
-            <a href="/tournaments/index.html" class="nav-button">
+            <a href="https://history.europechess.org/tournaments/index.html" class="nav-button">
                 <i class="fas fa-home"></i> Back to Tournaments
             </a>
         </div>
@@ -1488,7 +1488,7 @@
 <body>
     <div class="container">
         <div class="navigation">
-            <a href="/tournaments/index.html" class="nav-button">
+            <a href="https://history.europechess.org/tournaments/index.html" class="nav-button">
                 <i class="fas fa-home"></i> Back to Tournaments
             </a>
         </div>
@@ -1780,7 +1780,7 @@
                 
                 if (result.success) {
                     addLogEntry(`✓ Saved ${result.files.length} pages to server`);
-                    addLogEntry(`✓ Website published at: ${window.location.origin}/tournaments/`);
+                    addLogEntry(`✓ Website published at: https://history.europechess.org/tournaments/`);
                 } else {
                     throw new Error(result.error || 'Failed to save pages');
                 }

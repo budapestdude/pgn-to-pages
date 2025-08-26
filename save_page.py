@@ -136,7 +136,7 @@ def save_pages():
             'message': f'Successfully saved {len(saved_files)} pages',
             'files': saved_files,
             'timestamp': timestamp,
-            'index_url': '/tournaments/index.html'
+            'index_url': 'https://history.europechess.org/tournaments/index.html'
         })
         
     except Exception as e:
