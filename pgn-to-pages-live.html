@@ -561,45 +561,59 @@
             document.getElementById('resetBtn').addEventListener('click', resetProcessor);
         }
         
+        // Show processing section
+        function showProcessingSection() {
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('processingSection').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('errorSection').style.display = 'none';
+        }
+        
         // Process multiple PGN files
         async function processMultiplePGNFiles(files) {
-            showProcessingSection();
-            updateProgress(0, `Processing ${files.length} PGN file(s)...`);
-            
-            let allContent = '';
-            let fileCount = 0;
-            
-            for (const file of files) {
-                const content = await readFile(file);
-                // Add a separator comment between files to help identify them
-                if (fileCount > 0) {
-                    allContent += `\n\n[Event "--- File: ${file.name} ---"]\n\n`;
+            try {
+                showProcessingSection();
+                updateProgress(0, `Processing ${files.length} PGN file(s)...`);
+                clearLog();
+                
+                let allContent = '';
+                let fileCount = 0;
+                
+                for (const file of files) {
+                    const content = await readFile(file);
+                    // Add a separator comment between files to help identify them
+                    if (fileCount > 0) {
+                        allContent += `\n\n[Event "--- File: ${file.name} ---"]\n\n`;
+                    }
+                    allContent += content + '\n\n';
+                    fileCount++;
+                    updateProgress((fileCount / files.length) * 30, `Read ${fileCount}/${files.length} files...`);
                 }
-                allContent += content + '\n\n';
-                fileCount++;
-                updateProgress((fileCount / files.length) * 30, `Read ${fileCount}/${files.length} files...`);
+                
+                pgnContent = allContent;
+                
+                // Parse tournaments using existing parsePGN function
+                updateProgress(40, 'Parsing tournaments...');
+                parsePGN();
+                addLogEntry(`Found ${tournaments.length} tournament(s) across ${files.length} file(s)`);
+                
+                // Generate pages using existing generatePages function
+                updateProgress(60, 'Generating tournament pages...');
+                generatePages();
+                addLogEntry(`Generated ${Object.keys(generatedPages).length} pages`);
+                
+                // Auto-save to server
+                updateProgress(80, 'Saving to server...');
+                await autoSavePages();
+                
+                updateProgress(100, 'Complete!');
+                setTimeout(() => {
+                    showResults();
+                }, 500);
+            } catch (error) {
+                console.error('Error processing PGN files:', error);
+                showError('Failed to process PGN files: ' + error.message, error.stack);
             }
-            
-            pgnContent = allContent;
-            
-            // Parse tournaments using existing parsePGN function
-            updateProgress(40, 'Parsing tournaments...');
-            parsePGN();
-            addLogEntry(`Found ${tournaments.length} tournament(s) across ${files.length} file(s)`);
-            
-            // Generate pages using existing generatePages function
-            updateProgress(60, 'Generating tournament pages...');
-            generatePages();
-            addLogEntry(`Generated ${Object.keys(generatedPages).length} pages`);
-            
-            // Auto-save to server
-            updateProgress(80, 'Saving to server...');
-            await autoSavePages();
-            
-            updateProgress(100, 'Complete!');
-            setTimeout(() => {
-                showResults();
-            }, 500);
         }
         
         // Helper function to read file
@@ -1726,8 +1740,11 @@
         
         // Show results
         function showResults() {
-            // Hide processing section
+            // Hide other sections and show results
+            document.getElementById('uploadSection').style.display = 'none';
             document.getElementById('processingSection').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('errorSection').style.display = 'none';
             
             // Show tournament cards
             const tournamentGrid = document.getElementById('tournamentGrid');
@@ -1914,10 +1931,15 @@
         }
         
         // Update progress
-        function updateProgress(percent) {
+        function updateProgress(percent, message) {
             const fill = document.getElementById('progressFill');
             fill.style.width = percent + '%';
             fill.textContent = Math.round(percent) + '%';
+            
+            // Optionally add log message if provided
+            if (message) {
+                addLogEntry(message);
+            }
         }
         
         // Add log entry
